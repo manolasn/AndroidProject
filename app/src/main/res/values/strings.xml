@@ -1,13 +1,11 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">NickNames</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
-
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="button">Button</string>
+    <string name="back">BACK</string>
+    <string name="rules">Κανόνες Παιχνιδού</string>
+    <string name="start">Start</string>
+    <string name="nicknames_the_game">NickNames The Game</string>
+    <string name="how_to_play">How To Play</string>
+    <string name="on_a_player_s_turn_the_player_must_roll_the_dice_and_move_his_her_token_forward_the_number_of_spaces_as_rolled_on_the_dice_in_some_editions_players_must_do_any_trades_building_improvements_etc_at_the_start_of_their_turn_before_rolling_the_dice_if_the_player_lands_on_an_unowned_property_the_player_may_buy_it_for_the_price_listed_on_that_property_s_space_if_he_or_she_agrees_to_buy_it_he_or_she_pays_the_bank_the_amount_shown_on_the_property_space_and_receives_the_deed_for_that_property_if_he_or_she_refuses_to_buy_the_property_for_the_amount_stated_on_the_deed_the_property_is_auctioned_bidding_may_start_at_any_price_and_all_players_may_bid_the_highest_bidder_wins_the_property_and_pays_the_bank_the_amount_bid_and_receives_the_property_s_title_deed_railroads_and_utilities_are_also_considered_properties">On a player\'s turn, the player must roll the dice and move his/her token forward the number of spaces as rolled on the dice. In some editions, players must do any trades, building improvements etc. at the start of their turn before rolling the dice. If the player lands on an unowned property, the player may buy it for the price listed on that property\'s space. If he or she agrees to buy it, he or she pays the Bank the amount shown on the property space and receives the deed for that property. If he or she refuses to buy the property for the amount stated on the deed, the property is auctioned. Bidding may start at any price, and all players may bid. The highest bidder wins the property and pays the Bank the amount bid and receives the property\'s title deed. Railroads and utilities are also considered properties.</string>
 </resources>
