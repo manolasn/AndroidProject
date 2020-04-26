@@ -28,10 +28,18 @@ public class MainActivity extends AppCompatActivity {
         Button button2 =  findViewById(R.id.button2);
         button2.setOnClickListener(v -> openHelpnew());
 
+        Button buttonStart = findViewById(R.id.button1);
+        buttonStart.setOnClickListener(v -> startGame());
+
     }
 
     public void openHelpnew(){
         Intent intent = new Intent(this, HelpActivity.class);
+        startActivity(intent);
+    }
+
+    public void startGame(){
+        Intent intent = new Intent (this,StartGame.class);
         startActivity(intent);
     }
 
