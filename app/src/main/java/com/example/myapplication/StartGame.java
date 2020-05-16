@@ -20,15 +20,22 @@ public class StartGame extends AppCompatActivity {
         numberInput =  findViewById(R.id.editText);
         submit = findViewById(R.id.button4);
         submit.setOnClickListener(v -> {
-            if(numberInput.getText().toString().equals("")) {
+            if(numberInput.getText().toString().replaceAll("\\s","").equals("")) {
                 Toast.makeText(StartGame.this, "Please insert number before submitting", Toast.LENGTH_SHORT).show();
-            } else {
+            }
+            else {
 
                 numberofplayers = Integer.parseInt(numberInput.getText().toString());
-                Toast.makeText(StartGame.this, "Players submitted : " + numberofplayers, Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(this,EnterNamesOfPlayers.class);
-                i.putExtra("NUM_PLAYERS",numberofplayers);
-                this.startActivity(i);
+                if(numberofplayers>2&&numberofplayers<11) {
+                    Toast.makeText(StartGame.this, "Players submitted : " + numberofplayers, Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(this,EnterNamesOfPlayers.class);
+                    i.putExtra("NUM_PLAYERS",numberofplayers);
+                    this.startActivity(i);
+                }
+                else{
+                    Toast.makeText(StartGame.this, "The game is played with 3 to 10 people", Toast.LENGTH_SHORT).show();
+                    numberInput.setText("");
+                }
 
             }
         });
