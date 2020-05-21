@@ -5,31 +5,40 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.view.View;
-import android.widget.Button;
 
-import java.io.IOException;
+import android.widget.Button;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer mysong;
+    private Button leaderboard;
     Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.activity_main);
         context=this;
         mysong = MediaPlayer.create(this,R.raw.mainsound);
         mysong.setLooping(true);
         mysong.start();
+
+        leaderboard=findViewById(R.id.button_leaderboard);
 
         Button button2 =  findViewById(R.id.button2);
         button2.setOnClickListener(v -> openHelpnew());
 
         Button buttonStart = findViewById(R.id.button1);
         buttonStart.setOnClickListener(v -> startGame());
+
+        leaderboard.setOnClickListener(v -> {
+
+            //Put code here apoel
+
+        });
+
+
 
     }
 
@@ -49,5 +58,14 @@ public class MainActivity extends AppCompatActivity {
         mysong.release();
         finish();
     }
+
+
+//    @Override
+//    protected void onStop()
+//    {
+//        super.onStop();
+//        mysong.release();
+//        finish();
+//    }
 
 }

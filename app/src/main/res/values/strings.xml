@@ -18,4 +18,13 @@
     <string name="the_game_has_started">The game has started.</string>
     <string name="mother_nicknames">Read the nicknames aloud 3 times :</string>
     <string name="randomize">Randomize</string>
+    <string name="done">Done</string>
+    <string name="player_nicknames">Players :</string>
+    <string name="mother_nicks">Mother Nicknames :</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="scoreboard">Scoreboard</string>
+    <string name="next_round">Next Round</string>
+    <string name="_2_point">Add 2 points</string>
+    <string name="_1_point">Add 1 point</string>
+    <string name="start_timer">Start timer</string>
 </resources>

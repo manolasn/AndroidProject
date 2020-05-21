@@ -42,12 +42,13 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="376dp"
-        android:layout_height="414dp"
-        android:fontFamily="casual"
+        android:layout_width="377dp"
+        android:layout_height="416dp"
+        android:fontFamily="monospace"
         android:scrollbars="vertical"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

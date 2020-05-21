@@ -24,53 +24,53 @@ import java.util.Random;
 public class EnterNamesOfPlayers extends AppCompatActivity {
 
     private HashMap<String,String> names_nicknames=new HashMap<>();
-    private int players;
+    private int number_of_players;
     private EditText names,nicknames;
-    private TextView readyToPlay;
-    private ArrayList<String> motherNicknames=new ArrayList<>();
-    private Button submitnames;
-    int clickcount=0;
-    int mothernamescount=0;
+    private TextView activity_title;
+    private ArrayList<String> mother_nicknames =new ArrayList<>();
+    private Button submit_names;
+    int click_count = 0 ;
+    int mother_add_count = 0 ;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_names_of_players);
-        players = getIntent().getIntExtra("NUM_PLAYERS",0);
-        readyToPlay = findViewById(R.id.textView4);
+        number_of_players = getIntent().getIntExtra("NUM_PLAYERS",0);
+        activity_title = findViewById(R.id.textView4);
         names = findViewById(R.id.realname);
         nicknames = findViewById(R.id.nickname);
-        submitnames = findViewById(R.id.button5);
+        submit_names = findViewById(R.id.button5);
         final String[] motherName = {null};
-        submitnames.setOnClickListener(v -> {
-            clickcount++;
-            if (mothernamescount>2){
-                Intent i=new Intent(this, FinalGame.class);
+        submit_names.setOnClickListener(v -> {
+            click_count++;
+            if (mother_add_count >2){
+                Intent i=new Intent(this, RandomizeNicknames.class);
 
                 i.putExtra("NAMES_NICKNAMES",names_nicknames);
                 i.putExtra("MOTHER",motherName[0]);
-                i.putExtra("MOTHERNAMES",motherNicknames);
+                i.putExtra("MOTHERNAMES", mother_nicknames);
 
                 this.startActivity(i);
 
             }
             else if(names.getText().toString().replaceAll("\\s","").equals("") || nicknames.getText().toString().replaceAll("\\s","").equals(""))
             {
-                clickcount--;
+                click_count--;
                 Toast.makeText(EnterNamesOfPlayers.this, "Please insert both a name and a nickname", Toast.LENGTH_SHORT).show();
             }
             else if (names_nicknames.containsKey(names.getText().toString().replaceAll("\\s","")))
             {
-                clickcount--;
+                click_count--;
                 Toast.makeText(EnterNamesOfPlayers.this, "The name : " + names.getText().toString() + " already exists, real names must be unique.", Toast.LENGTH_SHORT).show();
                 names.setText("");
                 nicknames.setText("");
             }
-            else if(clickcount==players)
+            else if(click_count == number_of_players)
             {
-                readyToPlay.setText("Now give the phone to the \"mother\" and the game begins, have fun !");
-                submitnames.setText("OK !");
+                activity_title.setText("Now give the device to the \"mother\" and the game begins, have fun .");
+                submit_names.setText("OK !");
                 names_nicknames.put(names.getText().toString(),nicknames.getText().toString());
                 Random random = new Random();
                 List<String> keys = new ArrayList<>(names_nicknames.keySet());
@@ -84,23 +84,23 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
                 //HERE WE TERMINATE THE SUBMITS AS ALL THEY PLAYERS ARE OK !
             }
-            else if(clickcount>players){
+            else if(click_count > number_of_players){
                 //Open new activity with known orginizer and all nicknames and names in hashmap
-                readyToPlay.setText("Mother have to submit 2 more nicknames.");
+                activity_title.setText("Mother have to submit 2 more nicknames.");
                 names.setVisibility(View.GONE);
                 nicknames.setActivated(true);
                 nicknames.setBackgroundColor(Color.WHITE);
 
-                submitnames.setText("SUBMIT");
-                if(mothernamescount<2&&clickcount>players+1) {
-                    mothernamescount++;
-                    motherNicknames.add(nicknames.getText().toString());
+                submit_names.setText("SUBMIT");
+                if(mother_add_count <2&& click_count > number_of_players +1) {
+                    mother_add_count++;
+                    mother_nicknames.add(nicknames.getText().toString());
                     Toast.makeText(EnterNamesOfPlayers.this, "Nickname : " + nicknames.getText().toString() + " added successfully.", Toast.LENGTH_SHORT).show();
-                    if (mothernamescount == 2) {
-                        mothernamescount++;
-                        readyToPlay.setText("They game shall now start.");
+                    if (mother_add_count == 2) {
+                        mother_add_count++;
+                        activity_title.setText("They game shall now start.");
                         nicknames.setVisibility(View.GONE);
-                        submitnames.setText("OK !");
+                        submit_names.setText("OK !");
                     }
 
                 }
@@ -112,7 +112,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 //                });
             }
             else {
-                names_nicknames.put(names.getText().toString(),nicknames.getText().toString());
+                names_nicknames.put(names.getText().toString().replaceAll("\\s",""),nicknames.getText().toString());
                 Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to the next player.", Toast.LENGTH_SHORT).show();
                 names.setText("");
                 nicknames.setText("");
