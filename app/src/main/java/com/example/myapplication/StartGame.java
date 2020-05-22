@@ -3,6 +3,7 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +17,14 @@ public class StartGame extends AppCompatActivity {
     private EditText activity_title;
     private HashMap<String,Integer> scoreboard=new HashMap<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
         activity_title =  findViewById(R.id.editText);
         submit = findViewById(R.id.button4);
+
 
 
 

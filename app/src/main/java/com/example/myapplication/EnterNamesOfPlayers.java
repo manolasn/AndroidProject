@@ -64,8 +64,14 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             {
                 click_count--;
                 Toast.makeText(EnterNamesOfPlayers.this, "The name : " + names.getText().toString() + " already exists, real names must be unique.", Toast.LENGTH_SHORT).show();
-                names.setText("");
                 nicknames.setText("");
+            }
+            else if (names_nicknames.containsValue(nicknames.getText().toString().replaceAll("\\s","")))
+            {
+                click_count--;
+                Toast.makeText(EnterNamesOfPlayers.this, "Wow duplicate nickname that's rare! Put another nickname for the game to progress", Toast.LENGTH_SHORT).show();
+                nicknames.setText("");
+
             }
             else if(click_count == number_of_players)
             {
@@ -98,6 +104,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                     Toast.makeText(EnterNamesOfPlayers.this, "Nickname : " + nicknames.getText().toString() + " added successfully.", Toast.LENGTH_SHORT).show();
                     if (mother_add_count == 2) {
                         mother_add_count++;
+                        activity_title.setText("");
                         activity_title.setText("They game shall now start.");
                         nicknames.setVisibility(View.GONE);
                         submit_names.setText("OK !");
@@ -112,7 +119,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 //                });
             }
             else {
-                names_nicknames.put(names.getText().toString().replaceAll("\\s",""),nicknames.getText().toString());
+                names_nicknames.put(names.getText().toString().replaceAll("\\s",""),nicknames.getText().toString().replaceAll("\\s",""));
                 Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to the next player.", Toast.LENGTH_SHORT).show();
                 names.setText("");
                 nicknames.setText("");

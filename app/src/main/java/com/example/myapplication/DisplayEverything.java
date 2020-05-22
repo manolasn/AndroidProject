@@ -11,6 +11,7 @@ import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -68,6 +69,7 @@ public class DisplayEverything extends AppCompatActivity {
         }
 
 
+
         for (int i = 0; i< mother_nicknames.size(); i++)
         {
             title_mother.append( "\n" +  (i+1) + " : " + mother_nicknames.get(i));
@@ -103,14 +105,15 @@ public class DisplayEverything extends AppCompatActivity {
             add_2_points.setVisibility(View.INVISIBLE);
         }
 
+
         //Buttons add 1 point and add 2 points must be hidden until a timer of 30 secs starts and ends.
         add_1_point.setOnClickListener(v -> {
-            if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!scoreboard.containsKey(player_that_gets_points.getText().toString().replaceAll("\\s","")))
+            if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!scoreboard.containsKey(player_that_gets_points.getText().toString()))
             {
                 player_that_gets_points.setText("");
                 Toast.makeText(DisplayEverything.this, "Please insert a valid name to add point to.", Toast.LENGTH_SHORT).show();
             }
-            else if (scoreboard.containsKey(player_that_gets_points.getText().toString().replaceAll("\\s","")))
+            else if (scoreboard.containsKey(player_that_gets_points.getText().toString()))
             {
 
                 Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
@@ -127,12 +130,12 @@ public class DisplayEverything extends AppCompatActivity {
 
         //Buttons add 1 point and add 2 points must be hidden until a timer of 30 secs starts and ends.
         add_2_points.setOnClickListener(v -> {
-            if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!scoreboard.containsKey(player_that_gets_points.getText().toString().replaceAll("\\s","")))
+            if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!scoreboard.containsKey(player_that_gets_points.getText().toString()))
             {
                 player_that_gets_points.setText("");
                 Toast.makeText(DisplayEverything.this, "Please insert a valid name to add points to.", Toast.LENGTH_SHORT).show();
             }
-            else if (scoreboard.containsKey(player_that_gets_points.getText().toString().replaceAll("\\s","")))
+            else if (scoreboard.containsKey(player_that_gets_points.getText().toString()))
             {
                 Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
                 scoreboard.replace(player_that_gets_points.getText().toString(),temp+2);
@@ -249,5 +252,6 @@ public class DisplayEverything extends AppCompatActivity {
         timer_sound = MediaPlayer.create(this,R.raw.timer_sound);
         timer_sound.start();
     }
+
 
 }

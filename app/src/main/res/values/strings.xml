@@ -27,4 +27,5 @@
     <string name="_2_point">Add 2 points</string>
     <string name="_1_point">Add 1 point</string>
     <string name="start_timer">Start timer</string>
+    <string name="todo">TODO</string>
 </resources>
