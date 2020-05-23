@@ -3,7 +3,6 @@
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="back">BACK</string>
-    <string name="rules">Κανόνες Παιχνιδού</string>
     <string name="start">Start</string>
     <string name="nicknames_the_game">NickNames The Game</string>
     <string name="how_to_play">How To Play</string>
@@ -12,8 +11,8 @@
     <string name="submit">Submit</string>
     <string name="now_submit_your_real_name_and_the_nickname_you_want_to_play_with">Now submit your real name and the nickname you want to play with.</string>
     <string name="button">Button</string>
-    <string name="insert_real_name_here">(Insert real name here )</string>
-    <string name="insert_nickname_here">(Insert nickname here )</string>
+    <string name="insert_real_name_here">(Insert username)</string>
+    <string name="insert_nickname_here">(Insert nickname)</string>
     <string name="mothernicknames">Mother have to submit 2 more nicknames.</string>
     <string name="the_game_has_started">The game has started.</string>
     <string name="mother_nicknames">Read the nicknames aloud 3 times :</string>

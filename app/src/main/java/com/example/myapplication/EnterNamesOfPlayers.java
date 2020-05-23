@@ -91,7 +91,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 nicknames.setBackgroundColor(Color.GREEN);
                 Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to " + motherName[0] + ".", Toast.LENGTH_SHORT).show();
                 names.setText("The mother is :");
-                nicknames.setText(motherName[0]);
+                nicknames.setText(motherName[0]+".");
+
 
                 //HERE WE TERMINATE THE SUBMITS AS ALL THEY PLAYERS ARE OK !
             }
@@ -99,7 +100,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 //Open new activity with known orginizer and all nicknames and names in hashmap
                 activity_title.setText("Mother have to submit 2 more nicknames.");
                 names.setVisibility(View.GONE);
-                nicknames.setActivated(true);
+
                 nicknames.setBackgroundColor(Color.WHITE);
 
                 submit_names.setText("SUBMIT");

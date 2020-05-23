@@ -173,7 +173,10 @@ public class DisplayEverything extends AppCompatActivity {
 
 
 
+
         });
+
+        next_round.setEnabled(false);
 
         next_round.setOnClickListener(v -> {
 
@@ -263,6 +266,8 @@ public class DisplayEverything extends AppCompatActivity {
             @Override
             public void onFinish() {
 
+
+                next_round.setEnabled(true);
 
                 if (timer_text.getVisibility() == View.VISIBLE) {
                     timer_text.setVisibility(View.INVISIBLE);
