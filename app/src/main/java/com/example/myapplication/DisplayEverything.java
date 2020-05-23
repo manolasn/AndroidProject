@@ -3,15 +3,12 @@ package com.example.myapplication;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -29,7 +26,6 @@ public class DisplayEverything extends AppCompatActivity {
     private TextView title_players;
     private TextView player_that_gets_points,timer_text;
     private Button add_1_point,add_2_points,next_round,timer;
-    private CountDownTimer count_down;
     private long timeLeftMillsec;
     private MediaPlayer timer_sound;
 
@@ -48,6 +44,8 @@ public class DisplayEverything extends AppCompatActivity {
         timer=findViewById(R.id.button_timer);
         timer_text=findViewById(R.id.timer_text);
 
+        scoreboard= Assisting_Class.getScoreboard();
+
 
         names_nicknames= (HashMap<String, String>) (getIntent().getSerializableExtra("NAMES_NICKNAMES"));
 
@@ -65,28 +63,24 @@ public class DisplayEverything extends AppCompatActivity {
         }
         else
         {
-            timeLeftMillsec=55000;
+            timeLeftMillsec=50000;
         }
 
 
-
+        title_mother.append("Mother ("+mother+") Nicknames :");
         for (int i = 0; i< mother_nicknames.size(); i++)
         {
             title_mother.append( "\n" +  (i+1) + " : " + mother_nicknames.get(i));
         }
 
-        if(scoreboard!=null) {
-            scoreboard.put(mother, 0);
-        }
+
 
         final int[] j = {0};
         names_nicknames.entrySet().forEach(stringStringEntry -> {
                 j[0]++;
                 title_players.append("\n" + j[0] + " : " + stringStringEntry.getKey()+" ----> "+ stringStringEntry.getValue());
 
-                if(scoreboard!=null) {
-                    scoreboard.put(stringStringEntry.getKey(), 0);
-                }
+
         });
 
 
@@ -106,46 +100,76 @@ public class DisplayEverything extends AppCompatActivity {
         }
 
 
-        //Buttons add 1 point and add 2 points must be hidden until a timer of 30 secs starts and ends.
+        //Buttons that add 1 point and 2 points are implemented here
         add_1_point.setOnClickListener(v -> {
-            if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!scoreboard.containsKey(player_that_gets_points.getText().toString()))
-            {
-                player_that_gets_points.setText("");
-                Toast.makeText(DisplayEverything.this, "Please insert a valid name to add point to.", Toast.LENGTH_SHORT).show();
-            }
-            else if (scoreboard.containsKey(player_that_gets_points.getText().toString()))
+           if (names_nicknames.containsKey(player_that_gets_points.getText().toString())||player_that_gets_points.getText().toString().equals(mother))
             {
 
-                Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
-                scoreboard.replace(player_that_gets_points.getText().toString(),temp+1);
+
+                if(!scoreboard.containsKey(player_that_gets_points.getText().toString()))
+                {
+                    scoreboard.put(player_that_gets_points.getText().toString(),1);
+
+                } else
+                {
+                    Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
+                    scoreboard.replace(player_that_gets_points.getText().toString(),temp+1);
+
+                }
+
+
                 Toast.makeText(DisplayEverything.this, "1 point was added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
 
                 player_that_gets_points.setText("");
 
+
             }
+           else if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!names_nicknames.containsKey(player_that_gets_points.getText().toString())||!player_that_gets_points.getText().toString().equals(mother))
+
+           {
+
+                player_that_gets_points.setText("");
+                Toast.makeText(DisplayEverything.this, "Please insert a valid name to add point to.", Toast.LENGTH_SHORT).show();
+
+           }
+
 
 
 
         });
 
-        //Buttons add 1 point and add 2 points must be hidden until a timer of 30 secs starts and ends.
         add_2_points.setOnClickListener(v -> {
-            if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!scoreboard.containsKey(player_that_gets_points.getText().toString()))
+            if (names_nicknames.containsKey(player_that_gets_points.getText().toString())||player_that_gets_points.getText().toString().equals(mother))
             {
-                player_that_gets_points.setText("");
-                Toast.makeText(DisplayEverything.this, "Please insert a valid name to add points to.", Toast.LENGTH_SHORT).show();
-            }
-            else if (scoreboard.containsKey(player_that_gets_points.getText().toString()))
-            {
-                Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
-                scoreboard.replace(player_that_gets_points.getText().toString(),temp+2);
+
+
+                if(!scoreboard.containsKey(player_that_gets_points.getText().toString()))
+                {
+                    scoreboard.put(player_that_gets_points.getText().toString(),2);
+                } else
+                {
+                    Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
+                    scoreboard.replace(player_that_gets_points.getText().toString(),temp+2);
+
+                }
+
+
+
+
 
                 Toast.makeText(DisplayEverything.this, "2 points were added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
 
                 player_that_gets_points.setText("");
 
-            }
 
+            }
+            else if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!names_nicknames.containsKey(player_that_gets_points.getText().toString())||!player_that_gets_points.getText().toString().equals(mother))
+            {
+
+                player_that_gets_points.setText("");
+                Toast.makeText(DisplayEverything.this, "Please insert a valid name to add point to.", Toast.LENGTH_SHORT).show();
+
+            }
 
 
 
@@ -153,15 +177,48 @@ public class DisplayEverything extends AppCompatActivity {
 
         next_round.setOnClickListener(v -> {
 
-            Intent i=new Intent(this,StartGame.class);
-            i.putExtra("SCOREBOARD",scoreboard);
-            startActivity(i);
 
+           int maxScore=0;
+           ArrayList<String> winner=new ArrayList<>();
+           if(scoreboard!=null) {
+
+                for(HashMap.Entry<String, Integer> entry : scoreboard.entrySet() ) {
+
+                    if(entry.getValue()>maxScore) {
+                        maxScore = entry.getValue();
+                    }
+
+                }
+               for(HashMap.Entry<String, Integer> entry : scoreboard.entrySet() ) {
+
+                   if (entry.getValue() == maxScore)
+                   {
+                       winner.add(entry.getKey());
+                   }
+
+               }
+
+           }
 
             System.out.print("\n");
             if(scoreboard!=null) {
                 scoreboard.entrySet().forEach(stringStringEntry -> System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue()));
+                Assisting_Class.setScoreboard(scoreboard);
             }
+
+            if(maxScore>=3){
+                Intent i=new Intent(this,EndOfTheGame.class);
+                i.putExtra("WINNER",winner);
+                startActivity(i);
+            } else {
+
+                Intent i = new Intent(this, StartGame.class);
+
+                startActivity(i);
+            }
+
+
+
         });
 
 
@@ -193,12 +250,11 @@ public class DisplayEverything extends AppCompatActivity {
 
     public void startTimer(){
 
-        count_down=new CountDownTimer(timeLeftMillsec,1000) {
+        CountDownTimer count_down = new CountDownTimer(timeLeftMillsec, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timeLeftMillsec= millisUntilFinished;
-                if(timeLeftMillsec/1000==11)
-                {
+                timeLeftMillsec = millisUntilFinished;
+                if (timeLeftMillsec / 1000 == 11) {
                     play_sound();
                 }
                 updatetimer_text();
@@ -208,20 +264,16 @@ public class DisplayEverything extends AppCompatActivity {
             public void onFinish() {
 
 
-
-                if(timer_text.getVisibility()==View.VISIBLE){
+                if (timer_text.getVisibility() == View.VISIBLE) {
                     timer_text.setVisibility(View.INVISIBLE);
                 }
-                if(add_1_point.getVisibility()== View.INVISIBLE)
-                {
+                if (add_1_point.getVisibility() == View.INVISIBLE) {
                     add_1_point.setVisibility(View.VISIBLE);
                 }
-                if(add_2_points.getVisibility()== View.INVISIBLE)
-                {
+                if (add_2_points.getVisibility() == View.INVISIBLE) {
                     add_2_points.setVisibility(View.VISIBLE);
                 }
-                if(player_that_gets_points.getVisibility()==View.INVISIBLE)
-                {
+                if (player_that_gets_points.getVisibility() == View.INVISIBLE) {
                     player_that_gets_points.setVisibility(View.VISIBLE);
                 }
 

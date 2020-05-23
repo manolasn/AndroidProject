@@ -4,14 +4,16 @@ import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.media.SoundPool;
 
-class Song_Play {
+import java.util.HashMap;
 
+class Assisting_Class {
+
+        private static HashMap<String,Integer> scoreboard=new HashMap<>();
         private static MediaPlayer mediaPlayer;
-        private static SoundPool soundPool;
+
         static boolean isplayingAudio=false;
         static void playAudio(Context c){
             mediaPlayer = MediaPlayer.create(c, R.raw.mainsound);
-            soundPool = new SoundPool(4, AudioManager.STREAM_MUSIC, 100);
             if(!mediaPlayer.isPlaying())
             {
                 isplayingAudio=true;
@@ -23,5 +25,18 @@ class Song_Play {
             isplayingAudio=false;
             mediaPlayer.stop();
         }
+
+        static void setScoreboard(HashMap<String,Integer> ascoreboard){
+            scoreboard=ascoreboard;
+        }
+
+        static HashMap<String,Integer> getScoreboard()
+        {
+            return scoreboard;
+        }
+
+        static void clearScoreboard(){scoreboard.clear();}
+
+
 
 }

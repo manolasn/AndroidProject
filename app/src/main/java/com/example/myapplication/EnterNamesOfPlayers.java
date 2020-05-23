@@ -58,13 +58,18 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             else if(names.getText().toString().replaceAll("\\s","").equals("") || nicknames.getText().toString().replaceAll("\\s","").equals(""))
             {
                 click_count--;
-                Toast.makeText(EnterNamesOfPlayers.this, "Please insert both a name and a nickname", Toast.LENGTH_SHORT).show();
+                if(click_count>=number_of_players){
+                    Toast.makeText(EnterNamesOfPlayers.this, "Please insert a nickname", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(EnterNamesOfPlayers.this, "Please insert both a name and a nickname", Toast.LENGTH_SHORT).show();
+                }
             }
             else if (names_nicknames.containsKey(names.getText().toString().replaceAll("\\s","")))
             {
                 click_count--;
                 Toast.makeText(EnterNamesOfPlayers.this, "The name : " + names.getText().toString() + " already exists, real names must be unique.", Toast.LENGTH_SHORT).show();
-                nicknames.setText("");
+                names.setText("");
             }
             else if (names_nicknames.containsValue(nicknames.getText().toString().replaceAll("\\s","")))
             {
@@ -100,9 +105,21 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 submit_names.setText("SUBMIT");
                 if(mother_add_count <2&& click_count > number_of_players +1) {
                     mother_add_count++;
-                    mother_nicknames.add(nicknames.getText().toString());
-                    Toast.makeText(EnterNamesOfPlayers.this, "Nickname : " + nicknames.getText().toString() + " added successfully.", Toast.LENGTH_SHORT).show();
-                    if (mother_add_count == 2) {
+
+                    if (names_nicknames.containsValue(nicknames.getText().toString().replaceAll("\\s", ""))) {
+                        click_count--;
+                        mother_add_count--;
+                        Toast.makeText(EnterNamesOfPlayers.this, "Wow duplicate nickname that's rare! Put another nickname for the game to progress", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+
+                        mother_nicknames.add(nicknames.getText().toString());
+                        Toast.makeText(EnterNamesOfPlayers.this, "Nickname : " + nicknames.getText().toString() + " added successfully.", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    if (mother_add_count == 2)
+                    {
                         mother_add_count++;
                         activity_title.setText("");
                         activity_title.setText("They game shall now start.");
@@ -125,8 +142,6 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 nicknames.setText("");
 
             }
-
-
 
 
         });

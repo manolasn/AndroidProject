@@ -28,8 +28,8 @@ public class MainActivity extends AppCompatActivity {
         context=this;
 
 
-        if(!Song_Play.isplayingAudio) {
-            Song_Play.playAudio(context);
+        if(!Assisting_Class.isplayingAudio) {
+            Assisting_Class.playAudio(context);
         }
 
 
@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         playing.setOnClickListener(v -> {
 
-            Song_Play.stopAudio();
+
+            Assisting_Class.stopAudio();
             muted.setVisibility(View.VISIBLE);
             playing.setVisibility(View.INVISIBLE);
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
             muted.setVisibility(View.INVISIBLE);
             playing.setVisibility(View.VISIBLE);
-            Song_Play.playAudio(context);
+            Assisting_Class.playAudio(context);
 
         });
 
@@ -83,19 +84,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
-
-
-    protected void onResume()
-    {
-        super.onResume();
-        if(!Song_Play.isplayingAudio)
-        {
-            Song_Play.playAudio(this);
-        }
-
-
-    }
 
 
 
