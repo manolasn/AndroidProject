@@ -140,9 +140,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to the next player.", Toast.LENGTH_SHORT).show();
                 names.setText("");
                 nicknames.setText("");
-
             }
-
 
         });
     }
