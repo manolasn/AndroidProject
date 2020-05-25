@@ -95,8 +95,7 @@ public class DisplayEverything extends AppCompatActivity {
         }
         else
         {
-           // timeLeftMillsec=270000;
-            timeLeftMillsec=12000;
+            timeLeftMillsec=240000;
         }
 
 
