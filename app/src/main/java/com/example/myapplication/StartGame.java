@@ -31,10 +31,13 @@ public class StartGame extends AppCompatActivity {
         activity_title =  findViewById(R.id.editText);
         submit = findViewById(R.id.button4);
 
-        doBindService();
-        Intent music = new Intent();
-        music.setClass(this, MusicService.class);
-        startService(music);
+
+        if(!Assisting_Class.getMute()) {
+            doBindService();
+            Intent music = new Intent();
+            music.setClass(this, MusicService.class);
+            startService(music);
+        }
 
 
         mHomeWatcher = new HomeWatcher(this);
@@ -113,6 +116,8 @@ public class StartGame extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        mHomeWatcher.startWatch();
+
         if (mServ != null) {
             mServ.resumeMusic();
         }
@@ -122,6 +127,7 @@ public class StartGame extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
 
+        mHomeWatcher.stopWatch();
         //Detect idle screen
         PowerManager pm = (PowerManager)
                 getSystemService(Context.POWER_SERVICE);

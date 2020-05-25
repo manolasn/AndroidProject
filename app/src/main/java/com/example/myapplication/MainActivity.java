@@ -32,10 +32,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         context=this;
 
+
         doBindService();
         Intent music = new Intent();
         music.setClass(this, MusicService.class);
-        startService(music);
+
+        if(!Assisting_Class.getMute()) {
+            startService(music);
+        }
 
 
         mHomeWatcher = new HomeWatcher(this);
@@ -75,11 +79,19 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        muted.setVisibility(View.INVISIBLE);
+        if(Assisting_Class.getMute()){
+            playing.setVisibility(View.INVISIBLE);
+            muted.setVisibility(View.VISIBLE);
+        } else
+        {
+            muted.setVisibility(View.INVISIBLE);
+            playing.setVisibility(View.VISIBLE);
+        }
+
 
         playing.setOnClickListener(v -> {
 
-
+            Assisting_Class.setMute(true);
             mServ.pauseMusic();
             muted.setVisibility(View.VISIBLE);
             playing.setVisibility(View.INVISIBLE);
@@ -88,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
         muted.setOnClickListener(v -> {
 
+            Assisting_Class.setMute(false);
             muted.setVisibility(View.INVISIBLE);
             playing.setVisibility(View.VISIBLE);
             mServ.resumeMusic();
@@ -142,7 +155,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        if (mServ != null) {
+        mHomeWatcher.startWatch();
+
+        if (mServ != null  && !Assisting_Class.getMute() ) {
             mServ.resumeMusic();
         }
     }
@@ -150,6 +165,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
+        mHomeWatcher.stopWatch();
 
         //Detect idle screen
         PowerManager pm = (PowerManager)
@@ -176,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
         stopService(music);
+
 
     }
 

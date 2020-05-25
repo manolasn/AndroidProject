@@ -52,10 +52,13 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         submit_names = findViewById(R.id.button5);
 
 
-        doBindService();
-        Intent music = new Intent();
-        music.setClass(this, MusicService.class);
-        startService(music);
+
+        if(!Assisting_Class.getMute()) {
+            doBindService();
+            Intent music = new Intent();
+            music.setClass(this, MusicService.class);
+            startService(music);
+        }
 
 
         mHomeWatcher = new HomeWatcher(this);
@@ -215,6 +218,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        mHomeWatcher.startWatch();
 
         if (mServ != null) {
             mServ.resumeMusic();
@@ -224,7 +228,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-
+        mHomeWatcher.stopWatch();
         //Detect idle screen
         PowerManager pm = (PowerManager)
                 getSystemService(Context.POWER_SERVICE);

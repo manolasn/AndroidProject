@@ -56,11 +56,12 @@ public class RandomizeNicknames extends AppCompatActivity {
         all_nicknames.addAll(names_nicknames.values());
 
 
-        doBindService();
-        Intent music = new Intent();
-        music.setClass(this, MusicService.class);
-        startService(music);
-
+        if(!Assisting_Class.getMute()) {
+            doBindService();
+            Intent music = new Intent();
+            music.setClass(this, MusicService.class);
+            startService(music);
+        }
 
         mHomeWatcher = new HomeWatcher(this);
         mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
@@ -184,6 +185,8 @@ public class RandomizeNicknames extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        mHomeWatcher.startWatch();
+
         if (mServ != null) {
             mServ.resumeMusic();
         }
@@ -192,6 +195,8 @@ public class RandomizeNicknames extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
+        mHomeWatcher.stopWatch();
 
         //Detect idle screen
         PowerManager pm = (PowerManager)

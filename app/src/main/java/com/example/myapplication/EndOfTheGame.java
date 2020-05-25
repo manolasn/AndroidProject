@@ -7,6 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -21,7 +22,7 @@ import java.util.HashMap;
 
 public class EndOfTheGame extends AppCompatActivity {
 
-    private TextView winner;
+    private TextView winner,score;
     private HashMap<String,Integer> scoreboard=new HashMap<>();
     private MediaPlayer player;
     private ArrayList<String> winners;
@@ -39,6 +40,7 @@ public class EndOfTheGame extends AppCompatActivity {
 
         playAgain=findViewById(R.id.buttonnewgame);
         menu=findViewById(R.id.buttonmenu);
+        score = findViewById(R.id.textViewscore);
 
         player = MediaPlayer.create(this,R.raw.win_sound);
         player.start();
@@ -50,11 +52,12 @@ public class EndOfTheGame extends AppCompatActivity {
         }
 
 
-        doBindService();
-        Intent music = new Intent();
-        music.setClass(this, MusicService.class);
-        startService(music);
-
+        if(!Assisting_Class.getMute()) {
+            doBindService();
+            Intent music = new Intent();
+            music.setClass(this, MusicService.class);
+            startService(music);
+        }
 
         mHomeWatcher = new HomeWatcher(this);
         mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
@@ -77,6 +80,7 @@ public class EndOfTheGame extends AppCompatActivity {
 
         winners =(ArrayList<String>) getIntent().getSerializableExtra("WINNER");
 
+
         assert winners != null;
         if(winners.size() == 1){
             winner.append("The Winner is :\n"+winners.get(0));
@@ -94,8 +98,7 @@ public class EndOfTheGame extends AppCompatActivity {
         }
 
 
-        winner.append("\n \n");
-        winner.append("Game Score Board :"+"\n");
+        score.append("Game Score Board :"+"\n");
 
 
 
@@ -104,7 +107,7 @@ public class EndOfTheGame extends AppCompatActivity {
         final int[] j = {0};
         scoreboard.entrySet().forEach(stringStringEntry -> {
             j[0]++;
-            winner.append("\n" + j[0] + " : " + stringStringEntry.getKey()+" ----> "+ stringStringEntry.getValue());
+            score.append("\n" + j[0] + " : " + stringStringEntry.getKey()+" ----> "+ stringStringEntry.getValue());
 
 
         });
@@ -162,6 +165,8 @@ public class EndOfTheGame extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        mHomeWatcher.startWatch();
+
         if (mServ != null) {
             mServ.resumeMusic();
         }
@@ -170,6 +175,8 @@ public class EndOfTheGame extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
+        mHomeWatcher.stopWatch();
 
         //Detect idle screen
         PowerManager pm = (PowerManager)

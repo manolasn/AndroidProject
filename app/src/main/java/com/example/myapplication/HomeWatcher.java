@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-public class HomeWatcher {
+class HomeWatcher {
 
     //static final String TAG = "hg";
     private Context mContext;
@@ -29,7 +29,8 @@ public class HomeWatcher {
         }
     }
 
-    public void stopWatch() {
+
+    void stopWatch() {
         if (mRecevier != null) {
             mContext.unregisterReceiver(mRecevier);
         }

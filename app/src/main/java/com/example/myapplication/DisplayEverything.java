@@ -51,10 +51,12 @@ public class DisplayEverything extends AppCompatActivity {
         timer_text=findViewById(R.id.timer_text);
 
 
-        doBindService();
-        Intent music = new Intent();
-        music.setClass(this, MusicService.class);
-        startService(music);
+        if(!Assisting_Class.getMute()) {
+            doBindService();
+            Intent music = new Intent();
+            music.setClass(this, MusicService.class);
+            startService(music);
+        }
 
 
         mHomeWatcher = new HomeWatcher(this);
@@ -373,6 +375,8 @@ public class DisplayEverything extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+        mHomeWatcher.startWatch();
+
         if (mServ != null) {
             mServ.resumeMusic();
         }
@@ -381,6 +385,8 @@ public class DisplayEverything extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+
+        mHomeWatcher.stopWatch();
 
         //Detect idle screen
         PowerManager pm = (PowerManager)
