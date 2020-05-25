@@ -17,6 +17,7 @@ import android.os.PowerManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,6 +29,9 @@ public class EndOfTheGame extends AppCompatActivity {
     private ArrayList<String> winners;
     private Button playAgain;
     private Button menu;
+    private HashMap<String,String> names_nicknames=new HashMap<>();
+    private String mother;
+
     HomeWatcher mHomeWatcher;
 
 
@@ -44,6 +48,9 @@ public class EndOfTheGame extends AppCompatActivity {
 
         player = MediaPlayer.create(this,R.raw.win_sound);
         player.start();
+
+        names_nicknames = (HashMap<String, String>) getIntent().getSerializableExtra("PLAYERS");
+        mother = getIntent().getStringExtra("MOTHER");
 
 
 
@@ -103,6 +110,20 @@ public class EndOfTheGame extends AppCompatActivity {
 
 
         scoreboard=Assisting_Class.getScoreboard();
+
+
+        names_nicknames.entrySet().forEach(stringStringEntry -> {
+           if(!scoreboard.containsKey(stringStringEntry.getKey())){
+               scoreboard.put(stringStringEntry.getKey(),0);
+           }
+
+           if(!scoreboard.containsKey(mother)){
+               scoreboard.put(mother,0);
+           }
+
+
+        });
+
 
         final int[] j = {0};
         scoreboard.entrySet().forEach(stringStringEntry -> {

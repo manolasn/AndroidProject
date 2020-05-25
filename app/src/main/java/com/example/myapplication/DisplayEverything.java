@@ -244,6 +244,8 @@ public class DisplayEverything extends AppCompatActivity {
             if(maxScore>=3){
                 Intent i=new Intent(this,EndOfTheGame.class);
                 i.putExtra("WINNER",winner);
+                i.putExtra("PLAYERS",names_nicknames);
+                i.putExtra("MOTHER",mother);
                 startActivity(i);
             } else {
 
