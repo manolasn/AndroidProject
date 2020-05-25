@@ -87,15 +87,16 @@ public class DisplayEverything extends AppCompatActivity {
 
         if(names_nicknames.size()+1==3)
         {
-            timeLeftMillsec=20000;
+            timeLeftMillsec=60000;
         }
         else if (names_nicknames.size()+1>3&&names_nicknames.size()+1<7)
         {
-            timeLeftMillsec=30000;
+            timeLeftMillsec=180000;
         }
         else
         {
-            timeLeftMillsec=50000;
+           // timeLeftMillsec=270000;
+            timeLeftMillsec=12000;
         }
 
 
@@ -325,14 +326,29 @@ public class DisplayEverything extends AppCompatActivity {
     }
 
     public void updatetimer_text(){
-        int seconds = (int) timeLeftMillsec/1000;
+        int minutes = (int) (timeLeftMillsec/1000)/60;
+        int seconds = (int) (timeLeftMillsec/1000) % 60;
         String timeLeftText;
-        timeLeftText="00";
+        timeLeftText ="0" + minutes;
+
+
+        if(minutes==0)
+        {
+            timeLeftText="00";
+        }
+
+
         timeLeftText+=":";
-        if(seconds<10) {
+
+
+        if(seconds<10&&minutes==0) {
             timeLeftText+="0";
             timer_text.setTextColor(Color.RED);
         }
+
+
+
+
         timeLeftText+=seconds;
         timer_text.setText(timeLeftText);
     }

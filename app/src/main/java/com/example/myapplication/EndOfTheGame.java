@@ -105,7 +105,7 @@ public class EndOfTheGame extends AppCompatActivity {
         }
 
 
-        score.append("Game Score Board :"+"\n");
+        score.append("Game Score Board :");
 
 
 
