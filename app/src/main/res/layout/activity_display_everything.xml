@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="#E6E6E6"
     android:backgroundTint="#75000000"
+    android:onClick="hideKeyboard"
     tools:context=".DisplayEverything">
 
 
