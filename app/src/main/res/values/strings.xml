@@ -29,4 +29,5 @@
     <string name="game_score_board">Game Score Board : </string>
     <string name="play_again">Play Again</string>
     <string name="main_menu">Main Menu</string>
+    <string name="end_round">End Round</string>
 </resources>

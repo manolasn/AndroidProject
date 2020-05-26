@@ -25,15 +25,18 @@ import java.util.HashMap;
 public class DisplayEverything extends AppCompatActivity {
 
     private HashMap<String,String> names_nicknames=new HashMap<>();
+    private int timesTimerPressed = 0 ;
     private HashMap<String,Integer> scoreboard=new HashMap<>();
     private ArrayList<String> mother_nicknames =new ArrayList<>();
     private TextView title_mother;
     private TextView title_players;
     private TextView player_that_gets_points,timer_text;
-    private Button add_1_point,add_2_points,next_round,timer;
-    private long timeLeftMillsec;
+    private Button add_1_point,add_2_points,next_round,timer,endRound;
+    private long timeLeftMillsec,tempMillsec;
     private MediaPlayer timer_sound;
     HomeWatcher mHomeWatcher;
+    private boolean endRoundpressed;
+    private CountDownTimer count_down;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -49,6 +52,7 @@ public class DisplayEverything extends AppCompatActivity {
         next_round=findViewById(R.id.button6);
         timer=findViewById(R.id.button_timer);
         timer_text=findViewById(R.id.timer_text);
+        endRound=findViewById(R.id.buttonendround);
 
 
         if(!Assisting_Class.getMute()) {
@@ -87,15 +91,18 @@ public class DisplayEverything extends AppCompatActivity {
 
         if(names_nicknames.size()+1==3)
         {
-            timeLeftMillsec=60000;
+            timeLeftMillsec=13000;
+            tempMillsec=13000;
         }
         else if (names_nicknames.size()+1>3&&names_nicknames.size()+1<7)
         {
-            timeLeftMillsec=180000;
+            timeLeftMillsec=90000;
+            tempMillsec=90000;
         }
         else
         {
-            timeLeftMillsec=240000;
+            timeLeftMillsec=180000;
+            tempMillsec=180000;
         }
 
 
@@ -266,8 +273,40 @@ public class DisplayEverything extends AppCompatActivity {
                 timer.setVisibility(View.INVISIBLE);
             }
 
+            timesTimerPressed++;
+
             startTimer();
 
+
+        });
+
+
+        endRound.setOnClickListener(v -> {
+
+            next_round.setEnabled(true);
+            endRoundpressed=true;
+            timer_sound.stop();
+            timer_sound.release();
+            count_down.cancel();
+
+
+
+            if(endRound.getVisibility()==View.VISIBLE){
+                endRound.setVisibility(View.INVISIBLE);
+            }
+
+            if (timer_text.getVisibility() == View.VISIBLE) {
+                timer_text.setVisibility(View.INVISIBLE);
+            }
+            if (add_1_point.getVisibility() == View.INVISIBLE) {
+                add_1_point.setVisibility(View.VISIBLE);
+            }
+            if (add_2_points.getVisibility() == View.INVISIBLE) {
+                add_2_points.setVisibility(View.VISIBLE);
+            }
+            if (player_that_gets_points.getVisibility() == View.INVISIBLE) {
+                player_that_gets_points.setVisibility(View.VISIBLE);
+            }
 
         });
 
@@ -287,7 +326,8 @@ public class DisplayEverything extends AppCompatActivity {
 
     public void startTimer(){
 
-        CountDownTimer count_down = new CountDownTimer(timeLeftMillsec, 1000) {
+
+            count_down = new CountDownTimer(timeLeftMillsec, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 timeLeftMillsec = millisUntilFinished;
@@ -300,22 +340,29 @@ public class DisplayEverything extends AppCompatActivity {
             @Override
             public void onFinish() {
 
+                if(timesTimerPressed==6) {
+                    next_round.setEnabled(true);
 
-                next_round.setEnabled(true);
+                    if (timer_text.getVisibility() == View.VISIBLE) {
+                        timer_text.setVisibility(View.INVISIBLE);
+                    }
+                    if (add_1_point.getVisibility() == View.INVISIBLE) {
+                        add_1_point.setVisibility(View.VISIBLE);
+                    }
+                    if (add_2_points.getVisibility() == View.INVISIBLE) {
+                        add_2_points.setVisibility(View.VISIBLE);
+                    }
+                    if (player_that_gets_points.getVisibility() == View.INVISIBLE) {
+                        player_that_gets_points.setVisibility(View.VISIBLE);
+                    }
+                }
+                else if(timer.getVisibility()== View.INVISIBLE)
+                {
+                    timeLeftMillsec=tempMillsec;
+                    timer.setVisibility(View.VISIBLE);
+                }
 
-                if (timer_text.getVisibility() == View.VISIBLE) {
-                    timer_text.setVisibility(View.INVISIBLE);
-                }
-                if (add_1_point.getVisibility() == View.INVISIBLE) {
-                    add_1_point.setVisibility(View.VISIBLE);
-                }
-                if (add_2_points.getVisibility() == View.INVISIBLE) {
-                    add_2_points.setVisibility(View.VISIBLE);
-                }
-                if (player_that_gets_points.getVisibility() == View.INVISIBLE) {
-                    player_that_gets_points.setVisibility(View.VISIBLE);
-                }
-
+                timer_sound.stop();
                 timer_sound.release();
 
 
