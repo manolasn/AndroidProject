@@ -7,8 +7,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
-import android.media.AudioManager;
+
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,10 +16,13 @@ import android.os.PowerManager;
 import android.widget.Button;
 import android.widget.TextView;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/**
+ * This is the last activity after the winner is announced and we have the choice to play again or go to main menu
+ */
 public class EndOfTheGame extends AppCompatActivity {
 
     private TextView winner,score;
@@ -46,6 +48,7 @@ public class EndOfTheGame extends AppCompatActivity {
         menu=findViewById(R.id.buttonmenu);
         score = findViewById(R.id.textViewscore);
 
+        //Winning sound
         player = MediaPlayer.create(this,R.raw.win_sound);
         player.start();
 
@@ -133,14 +136,14 @@ public class EndOfTheGame extends AppCompatActivity {
 
         });
 
-
+        //Play again button listener
         playAgain.setOnClickListener(v -> {
             Intent i=new Intent(this,StartGame.class);
             Assisting_Class.clearScoreboard();
             startActivity(i);
 
         });
-
+        //Menu button listener
         menu.setOnClickListener(v -> {
             Intent i=new Intent(this,MainActivity.class);
             Assisting_Class.clearScoreboard();
@@ -152,6 +155,10 @@ public class EndOfTheGame extends AppCompatActivity {
 
 
     }
+
+    /**
+     * The code below is about the MediaPlayer playing on background
+     */
 
     private boolean mIsBound = false;
     private MusicService mServ;

@@ -16,11 +16,15 @@ import android.widget.Toast;
 
 import java.util.HashMap;
 
+
+/**
+ * This is the first activity after we have pressed Start at the main activity where we are asked about the number of players
+ */
 public class StartGame extends AppCompatActivity {
+
     private int number_of_players;
     private Button submit;
     private EditText activity_title;
-    private HashMap<String,Integer> scoreboard=new HashMap<>();
     HomeWatcher mHomeWatcher;
 
 
@@ -60,6 +64,7 @@ public class StartGame extends AppCompatActivity {
 
 
 
+        //Submit button listener with value checking
         submit.setOnClickListener(v -> {
             if(activity_title.getText().toString().replaceAll("\\s","").equals("")) {
                 Toast.makeText(StartGame.this, "Please insert number before submitting", Toast.LENGTH_SHORT).show();
@@ -83,6 +88,11 @@ public class StartGame extends AppCompatActivity {
 
     }
 
+
+
+    /**
+     * The code below is about the MediaPlayer playing on background
+     */
     private boolean mIsBound = false;
     private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){

@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+/**
+ * This class is used to check if the home back or open tabs button are pressed
+ */
 class HomeWatcher {
 
     //static final String TAG = "hg";

@@ -26,6 +26,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
+
+/**
+ * This is the activity that everything is setting up for the game we ask the players
+ * one by one their name and we put it in a HashMap as key the name and value nickname
+ */
 public class EnterNamesOfPlayers extends AppCompatActivity {
 
     private HashMap<String,String> names_nicknames=new HashMap<>();
@@ -83,8 +88,10 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
 
         final String[] motherName = {null};
+        //The submit button listener is implemented here we count how many times its pressed to dynamically change the UI
         submit_names.setOnClickListener(v -> {
             click_count++;
+            //This is where the programm goes when the mother added 2 nicknames and a new activity starts
             if (mother_add_count >2){
                 Intent i=new Intent(this, RandomizeNicknames.class);
 
@@ -118,6 +125,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 nicknames.setText("");
 
             }
+            //Here we check if all players have clicked the submit button, thus they entered they credentials and we randomly choose the mother
             else if(click_count == number_of_players)
             {
                 activity_title.setText("Now give the device to the \"mother\" and the game begins, have fun .");
@@ -135,9 +143,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 names.setFocusableInTouchMode(false);
                 nicknames.setFocusableInTouchMode(false);
 
-
-                //HERE WE TERMINATE THE SUBMITS AS ALL THEY PLAYERS ARE OK !
             }
+            //Here as the mother is chosen the UI dynamically changes again by counting the clicks on the submit button and we ask for 2 more nicknames from the mother.
             else if(click_count > number_of_players){
                 //Open new activity with known orginizer and all nicknames and names in hashmap
                 activity_title.setText("Mother have to submit 2 more nicknames.");
@@ -187,6 +194,10 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
         });
     }
+
+    /**
+     * The code below is about the MediaPlayer playing on background
+     */
 
     private boolean mIsBound = false;
     private MusicService mServ;

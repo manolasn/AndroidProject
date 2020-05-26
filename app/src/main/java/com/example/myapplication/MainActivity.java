@@ -15,7 +15,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 
-
+/**
+ * This is the class that represents the first screen of the app, the main activity.
+ */
 public class MainActivity extends AppCompatActivity {
 
 
@@ -72,8 +74,11 @@ public class MainActivity extends AppCompatActivity {
         muted=findViewById(R.id.button_mute);
 
         Button buttonStart = findViewById(R.id.button1);
+
+        //Start button listener
         buttonStart.setOnClickListener(v -> startGame());
 
+        //Leaderboard button listener
         leaderboard.setOnClickListener(v -> {
             //Put code here apoel
         });
@@ -89,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
+        //Mute and unmute buttons below
         playing.setOnClickListener(v -> {
 
             Assisting_Class.setMute(true);
@@ -111,17 +117,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is called to when the button How To Play is pressed and opens HelpActivity
+     */
     public void openHelpnew(){
         Intent intent = new Intent(this, HelpActivity.class);
         startActivity(intent);
 
     }
 
+    /**
+     * This method is called when Start button is pressed and opens StartGame activity
+     */
     public void startGame(){
         Intent intent = new Intent (this,StartGame.class);
         startActivity(intent);
     }
 
+
+    /**
+     * The code below is about the MediaPlayer playing on background
+     */
     private boolean mIsBound = false;
     private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){

@@ -22,6 +22,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This activity is used to display all the information to the mother as when the round has ended to add points to the winning players
+ * and if one of them has more than 3 points wins and the game ends
+ */
 public class DisplayEverything extends AppCompatActivity {
 
     private HashMap<String,String> names_nicknames=new HashMap<>();
@@ -89,6 +93,7 @@ public class DisplayEverything extends AppCompatActivity {
 
         mother_nicknames =(ArrayList<String>)(getIntent().getSerializableExtra("MOTHERNAMES"));
 
+        //Here we set the timers according to the number of players
         if(names_nicknames.size()+1==3)
         {
             timeLeftMillsec=20000;
@@ -106,14 +111,14 @@ public class DisplayEverything extends AppCompatActivity {
         }
 
 
+        //Here we display the mother nicknames
         title_mother.append("Mother ("+mother+") Nicknames :");
         for (int i = 0; i< mother_nicknames.size(); i++)
         {
             title_mother.append( "\n" +  (i+1) + " : " + mother_nicknames.get(i));
         }
 
-
-
+        //Here we display each player's names and nicknames
         final int[] j = {0};
         names_nicknames.entrySet().forEach(stringStringEntry -> {
                 j[0]++;
@@ -123,6 +128,7 @@ public class DisplayEverything extends AppCompatActivity {
         });
 
 
+        //We hide some UI elements that we dont need for now.
         if(player_that_gets_points.getVisibility()==View.VISIBLE)
         {
             player_that_gets_points.setVisibility(View.INVISIBLE);
@@ -141,7 +147,8 @@ public class DisplayEverything extends AppCompatActivity {
 
         //Buttons that add 1 point and 2 points are implemented here
         add_1_point.setOnClickListener(v -> {
-           if (names_nicknames.containsKey(player_that_gets_points.getText().toString())||player_that_gets_points.getText().toString().equals(mother))
+
+            if (names_nicknames.containsKey(player_that_gets_points.getText().toString())||player_that_gets_points.getText().toString().equals(mother))
             {
 
 
@@ -178,30 +185,30 @@ public class DisplayEverything extends AppCompatActivity {
         });
 
         add_2_points.setOnClickListener(v -> {
+
             if (names_nicknames.containsKey(player_that_gets_points.getText().toString())||player_that_gets_points.getText().toString().equals(mother))
             {
 
-
                 if(!scoreboard.containsKey(player_that_gets_points.getText().toString()))
                 {
+
                     scoreboard.put(player_that_gets_points.getText().toString(),2);
+
                 } else
                 {
+
                     Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
                     scoreboard.replace(player_that_gets_points.getText().toString(),temp+2);
 
+
                 }
-
-
-
-
 
                 Toast.makeText(DisplayEverything.this, "2 points were added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
 
                 player_that_gets_points.setText("");
 
-
             }
+
             else if(player_that_gets_points.getText().toString().replaceAll("\\s","").equals("")||!names_nicknames.containsKey(player_that_gets_points.getText().toString())||!player_that_gets_points.getText().toString().equals(mother))
             {
 
@@ -211,12 +218,11 @@ public class DisplayEverything extends AppCompatActivity {
             }
 
 
-
-
         });
 
         next_round.setEnabled(false);
 
+        //Each time next round button is pressed we check if one or more players' points have exceeded 3 points and we announce them winners
         next_round.setOnClickListener(v -> {
 
 
@@ -247,7 +253,7 @@ public class DisplayEverything extends AppCompatActivity {
                 scoreboard.entrySet().forEach(stringStringEntry -> System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue()));
                 Assisting_Class.setScoreboard(scoreboard);
             }
-
+            //if at least one player has more that 3 points we end the game else we go to the next round
             if(maxScore>=3){
                 Intent i=new Intent(this,EndOfTheGame.class);
                 i.putExtra("WINNER",winner);
@@ -266,7 +272,7 @@ public class DisplayEverything extends AppCompatActivity {
         });
 
 
-
+        //We use timer each time a team has a chance to find all nicknames and end the round
         timer.setOnClickListener(v -> {
             if(timer.getVisibility()== View.VISIBLE)
             {
@@ -280,7 +286,7 @@ public class DisplayEverything extends AppCompatActivity {
 
         });
 
-
+        //If a team finds the nicknames before all the tries are used the game ends abruptly and we go to the next round
         endRound.setOnClickListener(v -> {
 
             next_round.setEnabled(true);
@@ -335,6 +341,9 @@ public class DisplayEverything extends AppCompatActivity {
 
     }
 
+    /**
+     * This method implements the timer that we use for the teams to meet
+     */
     public void startTimer(){
 
 
@@ -390,6 +399,9 @@ public class DisplayEverything extends AppCompatActivity {
 
     }
 
+    /**
+     * Here on each tick of the timer we update the text that the UI is showing
+     */
     public void updatetimer_text(){
         int minutes = (int) (timeLeftMillsec/1000)/60;
         int seconds = (int) (timeLeftMillsec/1000) % 60;
@@ -419,12 +431,17 @@ public class DisplayEverything extends AppCompatActivity {
     }
 
 
+    //Sound for timer
     public void play_sound()
     {
         timer_sound = MediaPlayer.create(this,R.raw.timer_sound);
         timer_sound.start();
     }
 
+
+    /**
+     * The code below is about the MediaPlayer playing on background
+     */
     private boolean mIsBound = false;
     private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){

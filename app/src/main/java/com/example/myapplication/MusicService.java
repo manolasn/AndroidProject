@@ -7,6 +7,9 @@ import android.os.Binder;
 import android.os.IBinder;
 import android.widget.Toast;
 
+/**
+ * This is the music service of the main song of the app
+ */
 public class MusicService extends Service implements MediaPlayer.OnErrorListener {
 
     private final IBinder mBinder = new ServiceBinder();

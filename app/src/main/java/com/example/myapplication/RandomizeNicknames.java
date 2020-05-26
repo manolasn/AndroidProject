@@ -19,6 +19,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+
+/**
+ * This activity is used so the mother can randomize the nicknames before reading them aloud
+ */
 public class RandomizeNicknames extends AppCompatActivity {
 
     private HashMap<String,String> names_nicknames=new HashMap<>();
@@ -85,17 +89,16 @@ public class RandomizeNicknames extends AppCompatActivity {
 
 
 
-
-
         for (int i = 0; i< all_nicknames.size(); i++)
         {
             activity_title.append( "\n" +  (i+1) + " : " + all_nicknames.get(i));
         }
-       // motherNames.setText(motherNicknames.get(0));
+
 
 
 
         Random rand=new Random();
+        //Randomize uses a random int and a temp arraylist and each time takes a random element from the given arraylist and displays it on screen
         randomize.setOnClickListener(v -> {
 
             int i = 0 ;
@@ -121,6 +124,7 @@ public class RandomizeNicknames extends AppCompatActivity {
 
         });
 
+        //Done button listener that leads to the next activity
         done.setOnClickListener(v -> {
             Intent i=new Intent(this, DisplayEverything.class);
 
@@ -134,23 +138,25 @@ public class RandomizeNicknames extends AppCompatActivity {
 
 
 
-
-
-
-
-
-        System.out.print("\n");
-        if(names_nicknames!=null) {
-            names_nicknames.entrySet().forEach(stringStringEntry -> System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue()));
-        }
-        System.out.print("\n");
-        mother_nicknames.forEach(s -> System.out.println("mother nickname : " + s));
+//        This part was used for debugging
+//
+//        System.out.print("\n");
+//        if(names_nicknames!=null) {
+//            names_nicknames.entrySet().forEach(stringStringEntry -> System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue()));
+//        }
+//        System.out.print("\n");
+//        mother_nicknames.forEach(s -> System.out.println("mother nickname : " + s));
 
 
 
 
 
     }
+
+
+    /**
+     * The code below is about the MediaPlayer playing on background
+     */
 
     private boolean mIsBound = false;
     private MusicService mServ;
