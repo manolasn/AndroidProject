@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,9 +17,13 @@ import android.os.PowerManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import nl.dionsegijn.konfetti.models.Shape;
+import nl.dionsegijn.konfetti.models.Size;
+import nl.dionsegijn.konfetti.KonfettiView;
 
 /**
  * This is the last activity after the winner is announced and we have the choice to play again or go to main menu
@@ -47,6 +52,18 @@ public class EndOfTheGame extends AppCompatActivity {
         playAgain=findViewById(R.id.buttonnewgame);
         menu=findViewById(R.id.buttonmenu);
         score = findViewById(R.id.textViewscore);
+
+        final KonfettiView konfettiView = findViewById(R.id.viewKonfetti);
+        konfettiView.build()
+                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                .setDirection(-20.0 ,200.0)
+                .setSpeed(5f, 20f)
+                .setFadeOutEnabled(true)
+                .setTimeToLive(2000L)
+                .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
+                .addSizes(new Size(12, 5f))
+                .setPosition(500f, 500f, -50f, -50f)
+                .streamFor(500, 4000L);
 
         //Winning sound
         player = MediaPlayer.create(this,R.raw.win_sound);
