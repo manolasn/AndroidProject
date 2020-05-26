@@ -35,8 +35,8 @@ public class DisplayEverything extends AppCompatActivity {
     private long timeLeftMillsec,tempMillsec;
     private MediaPlayer timer_sound;
     HomeWatcher mHomeWatcher;
-    private boolean endRoundpressed;
     private CountDownTimer count_down;
+    private boolean countrunning;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -91,18 +91,18 @@ public class DisplayEverything extends AppCompatActivity {
 
         if(names_nicknames.size()+1==3)
         {
-            timeLeftMillsec=13000;
-            tempMillsec=13000;
+            timeLeftMillsec=20000;
+            tempMillsec=20000;
         }
         else if (names_nicknames.size()+1>3&&names_nicknames.size()+1<7)
         {
-            timeLeftMillsec=90000;
-            tempMillsec=90000;
+            timeLeftMillsec=60000;
+            tempMillsec=60000;
         }
         else
         {
-            timeLeftMillsec=180000;
-            tempMillsec=180000;
+            timeLeftMillsec=90000;
+            tempMillsec=90000;
         }
 
 
@@ -284,15 +284,26 @@ public class DisplayEverything extends AppCompatActivity {
         endRound.setOnClickListener(v -> {
 
             next_round.setEnabled(true);
-            endRoundpressed=true;
-            timer_sound.stop();
-            timer_sound.release();
-            count_down.cancel();
+            if(timer_sound!=null) {
+              if (timer_sound.isPlaying()) {
+                  timer_sound.stop();
+                  timer_sound.release();
+              }
+            }
+
+           if(countrunning)
+           {
+               count_down.cancel();
+           }
 
 
 
             if(endRound.getVisibility()==View.VISIBLE){
                 endRound.setVisibility(View.INVISIBLE);
+            }
+
+            if(timer.getVisibility()==View.VISIBLE){
+                timer.setVisibility(View.INVISIBLE);
             }
 
             if (timer_text.getVisibility() == View.VISIBLE) {
@@ -330,6 +341,7 @@ public class DisplayEverything extends AppCompatActivity {
             count_down = new CountDownTimer(timeLeftMillsec, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
+                countrunning=true;
                 timeLeftMillsec = millisUntilFinished;
                 if (timeLeftMillsec / 1000 == 11) {
                     play_sound();
@@ -340,8 +352,15 @@ public class DisplayEverything extends AppCompatActivity {
             @Override
             public void onFinish() {
 
+                countrunning=false;
+
                 if(timesTimerPressed==6) {
                     next_round.setEnabled(true);
+
+                    if(endRound.getVisibility()==View.VISIBLE)
+                    {
+                        endRound.setVisibility(View.INVISIBLE);
+                    }
 
                     if (timer_text.getVisibility() == View.VISIBLE) {
                         timer_text.setVisibility(View.INVISIBLE);

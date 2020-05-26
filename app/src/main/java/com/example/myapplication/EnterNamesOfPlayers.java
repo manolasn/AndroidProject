@@ -128,10 +128,12 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 motherName[0] = keys.get(random.nextInt(keys.size()));
                 nicknames.setBackgroundColor(Color.GREEN);
                 Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to " + motherName[0] + ".", Toast.LENGTH_SHORT).show();
-                names.setFocusableInTouchMode(false);
-                nicknames.setFocusableInTouchMode(false);
+
                 names.setText("The mother is :");
                 nicknames.setText(motherName[0]+" !");
+
+                names.setFocusableInTouchMode(false);
+                nicknames.setFocusableInTouchMode(false);
 
 
                 //HERE WE TERMINATE THE SUBMITS AS ALL THEY PLAYERS ARE OK !
