@@ -64,7 +64,7 @@ public class EndOfTheGame extends AppCompatActivity {
                 .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
                 .addSizes(new Size(12, 5f))
                 .setPosition(500f, 500f, -50f, -50f)
-                .streamFor(500, 4000L);
+                .streamFor(500, 2000L);
 
         //Winning sound
         player = MediaPlayer.create(this,R.raw.win_sound);
