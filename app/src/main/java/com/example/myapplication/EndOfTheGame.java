@@ -53,6 +53,7 @@ public class EndOfTheGame extends AppCompatActivity {
         menu=findViewById(R.id.buttonmenu);
         score = findViewById(R.id.textViewscore);
 
+        //Here we are using the n1.dionsegijn:konfetti external library to make some animations when winner is found.
         final KonfettiView konfettiView = findViewById(R.id.viewKonfetti);
         konfettiView.build()
                 .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
