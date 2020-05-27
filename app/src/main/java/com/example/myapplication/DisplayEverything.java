@@ -292,17 +292,19 @@ public class DisplayEverything extends AppCompatActivity {
         endRound.setOnClickListener(v -> {
 
             next_round.setEnabled(true);
-            if(timer_sound!=null) {
-              if (timer_sound.isPlaying()) {
-                  timer_sound.stop();
-                  timer_sound.release();
-              }
-            }
+
 
            if(countrunning)
            {
                count_down.cancel();
+               if(timer_sound!=null) {
+                   if (timer_sound.isPlaying()) {
+                       timer_sound.release();
+                   }
+               }
            }
+
+
 
 
 
@@ -359,6 +361,8 @@ public class DisplayEverything extends AppCompatActivity {
                 }
                 updatetimer_text();
             }
+
+
 
             @Override
             public void onFinish() {
