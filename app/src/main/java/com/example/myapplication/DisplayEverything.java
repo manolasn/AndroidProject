@@ -427,6 +427,9 @@ public class DisplayEverything extends AppCompatActivity {
         if(seconds<10&&minutes==0) {
             timeLeftText+="0";
             timer_text.setTextColor(Color.RED);
+        } else
+        {
+            timer_text.setTextColor(Color.BLACK);
         }
 
 
