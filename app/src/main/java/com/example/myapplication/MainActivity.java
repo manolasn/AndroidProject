@@ -5,7 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
+
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.IBinder;
@@ -13,6 +16,8 @@ import android.os.PowerManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+
+import java.util.HashMap;
 
 
 /**
@@ -28,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     Context context;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +86,33 @@ public class MainActivity extends AppCompatActivity {
 
         //Leaderboard button listener
         leaderboard.setOnClickListener(v -> {
-            //Put code here apoel
+            LeaderboardDatabase db=new LeaderboardDatabase(this);
+//            List<String> alist= db.getAllNames();
+//            List<Integer> blist =db.getAllScores();
+//
+            System.out.println("********LEADERBOARD*********\n");
+//
+//            for(int i=0;i<alist.size();i++)
+//            {
+//                System.out.println("Name :" + alist.get(i) + "  Score :" + blist.get(i));
+//            }
+
+            HashMap<String,Integer> aHash=db.getAll();
+
+            aHash.entrySet().forEach(stringStringEntry -> {
+
+               // System.out.print("\n" + "Name : " + stringStringEntry.getKey()+" Score : "+ stringStringEntry.getValue());
+
+
+            });
+
+
+
+
+
+
+
+
         });
 
 

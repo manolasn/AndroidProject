@@ -43,6 +43,7 @@ public class DisplayEverything extends AppCompatActivity {
     HomeWatcher mHomeWatcher;
     private CountDownTimer count_down;
     private boolean countrunning;
+    LeaderboardDatabase db=new LeaderboardDatabase(this);
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -158,10 +159,32 @@ public class DisplayEverything extends AppCompatActivity {
                 {
                     scoreboard.put(player_that_gets_points.getText().toString(),1);
 
-                } else
-                {
+
+
+                    if(db.getAllNames().contains(player_that_gets_points.getText().toString())) {
+                        Player a=db.getPlayer(player_that_gets_points.getText().toString());
+                        a.setScore(a.getScore() + 1);
+                        db.updatePlayer(a);
+                    } else {
+                        db.addPlayer(new Player(player_that_gets_points.getText().toString(),1));
+                    }
+
+
+                }
+                else {
                     Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
                     scoreboard.replace(player_that_gets_points.getText().toString(),temp+1);
+
+
+
+                    if(db.getAllNames().contains(player_that_gets_points.getText().toString())) {
+                        Player a=db.getPlayer(player_that_gets_points.getText().toString());
+                        a.setScore(a.getScore() + 1);
+                        db.updatePlayer(a);
+                    } else {
+                        db.addPlayer(new Player(player_that_gets_points.getText().toString(),1));
+                    }
+
 
                 }
 
@@ -196,14 +219,34 @@ public class DisplayEverything extends AppCompatActivity {
 
                     scoreboard.put(player_that_gets_points.getText().toString(),2);
 
-                } else
-                {
+
+                    if(db.getAllNames().contains(player_that_gets_points.getText().toString())) {
+                        Player a=db.getPlayer(player_that_gets_points.getText().toString());
+                        a.setScore(a.getScore() + 2);
+                        db.updatePlayer(a);
+                    } else {
+                        db.addPlayer(new Player(player_that_gets_points.getText().toString(),2));
+                    }
+
+
+                }
+                else {
 
                     Integer temp= scoreboard.get(player_that_gets_points.getText().toString());
                     scoreboard.replace(player_that_gets_points.getText().toString(),temp+2);
 
+                    if(db.getAllNames().contains(player_that_gets_points.getText().toString())) {
+                        Player a=db.getPlayer(player_that_gets_points.getText().toString());
+                        a.setScore(a.getScore() + 2);
+                        db.updatePlayer(a);
+                    } else {
+                        db.addPlayer(new Player(player_that_gets_points.getText().toString(),2));
+                    }
 
                 }
+
+
+
 
                 Toast.makeText(DisplayEverything.this, "2 points were added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
 

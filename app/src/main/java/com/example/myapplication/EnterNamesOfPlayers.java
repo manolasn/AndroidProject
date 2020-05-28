@@ -149,7 +149,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             //Here as the mother is chosen the UI dynamically changes again by counting the clicks on the submit button and we ask for 2 more nicknames from the mother.
             else if(click_count > number_of_players){
                 //Open new activity with known orginizer and all nicknames and names in hashmap
-                activity_title.setText("Mother have to submit 2 more nicknames.");
+                activity_title.setText("Mother has to submit 2 more nicknames.");
                 names.setVisibility(View.GONE);
                 nicknames.setFocusableInTouchMode(true);
                 nicknames.setBackgroundColor(Color.WHITE);
