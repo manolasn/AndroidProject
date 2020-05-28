@@ -39,7 +39,7 @@ public class EndOfTheGame extends AppCompatActivity {
     private HashMap<String,String> names_nicknames=new HashMap<>();
     private String mother;
 
-    HomeWatcher mHomeWatcher;
+    private HomeWatcher mHomeWatcher;
 
 
 

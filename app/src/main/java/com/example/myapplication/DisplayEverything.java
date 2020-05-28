@@ -40,10 +40,10 @@ public class DisplayEverything extends AppCompatActivity {
     private Button add_1_point,add_2_points,next_round,timer,endRound;
     private long timeLeftMillsec,tempMillsec;
     private MediaPlayer timer_sound;
-    HomeWatcher mHomeWatcher;
+    private HomeWatcher mHomeWatcher;
     private CountDownTimer count_down;
     private boolean countrunning;
-    LeaderboardDatabase db=new LeaderboardDatabase(this);
+    private LeaderboardDatabase db=new LeaderboardDatabase(this);
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)

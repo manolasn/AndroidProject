@@ -28,11 +28,9 @@ import java.util.Comparator;
 public class MainActivity extends AppCompatActivity {
 
 
-    private Button leaderboard;
     private ImageButton muted;
     private ImageButton playing;
-    HomeWatcher mHomeWatcher;
-    Context context;
+    private HomeWatcher mHomeWatcher;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -40,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        context=this;
 
 
         doBindService();
@@ -70,10 +67,7 @@ public class MainActivity extends AppCompatActivity {
         mHomeWatcher.startWatch();
 
 
-
-
-
-        leaderboard=findViewById(R.id.button_leaderboard);
+        Button leaderboard = findViewById(R.id.button_leaderboard);
 
         Button button2 =  findViewById(R.id.button2);
         button2.setOnClickListener(v -> openHelpnew());

@@ -28,7 +28,7 @@ public class StartGame extends AppCompatActivity {
     private int number_of_players;
     private Button submit;
     private EditText activity_title;
-    HomeWatcher mHomeWatcher;
+    private HomeWatcher mHomeWatcher;
 
 
     @Override

@@ -43,7 +43,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     private Button submit_names;
     int click_count = 0 ;
     int mother_add_count = 0 ;
-    HomeWatcher mHomeWatcher;
+    private HomeWatcher mHomeWatcher;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)

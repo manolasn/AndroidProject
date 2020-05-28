@@ -30,9 +30,8 @@ public class RandomizeNicknames extends AppCompatActivity {
     private ArrayList<String> all_nicknames =new ArrayList<>();
     private ArrayList<String> temp=new ArrayList<>();
     private TextView activity_title;
-    private Button randomize,done;
     private boolean flag=true;
-    HomeWatcher mHomeWatcher;
+    private HomeWatcher mHomeWatcher;
 
 
 
@@ -51,8 +50,8 @@ public class RandomizeNicknames extends AppCompatActivity {
         }
 
         activity_title =findViewById(R.id.textView9);
-        randomize=findViewById(R.id.button3);
-        done=findViewById(R.id.button_done);
+        Button randomize = findViewById(R.id.button3);
+        Button done = findViewById(R.id.button_done);
 
         names_nicknames.remove(mother);
 
