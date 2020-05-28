@@ -11,6 +11,9 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * That's the activity for the database to display the database contains the score of all players as it is a leaderboard it is ordered by  the highest to the lowest score
+ */
 public class LeaderBoard extends AppCompatActivity {
 
     @Override

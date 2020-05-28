@@ -11,6 +11,9 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+/**
+ * That is the class that implements the database of the game
+ */
 public class LeaderboardDatabase extends SQLiteOpenHelper {
 
     private static final int DATABASE_VERSION = 1;
@@ -42,6 +45,10 @@ public class LeaderboardDatabase extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * We add a player to the database with this method
+     * @param player is a struct that has name and score
+     */
     void addPlayer(Player player){
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -54,6 +61,11 @@ public class LeaderboardDatabase extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * This method returns a player, his name and his score
+     * @param id the player name that we are looking as the name is the key on our database
+     * @return the player that we are looking for
+     */
     Player getPlayer(String id){
         SQLiteDatabase db=this.getReadableDatabase();
 
@@ -70,6 +82,11 @@ public class LeaderboardDatabase extends SQLiteOpenHelper {
         return player;
     }
 
+
+    /**
+     *  This method returna a list of all players' names that are in the database
+     * @return the list of players
+     */
     List<String> getAllNames(){
         List<String> playerList=new ArrayList<>();
 
@@ -94,6 +111,10 @@ public class LeaderboardDatabase extends SQLiteOpenHelper {
         return playerList;
     }
 
+    /**
+     * This method returns all players and their scores
+     * @return an arraylist of all players
+     */
     ArrayList<Player> getAll(){
         ArrayList<Player> playerList=new ArrayList<>();
 
@@ -122,10 +143,10 @@ public class LeaderboardDatabase extends SQLiteOpenHelper {
     }
 
 
-
-
-
-
+    /**
+     * This class is used to update an existing player
+     * @param player a player that has scored
+     */
     void updatePlayer(Player player){
         SQLiteDatabase db = this.getWritableDatabase();
 
