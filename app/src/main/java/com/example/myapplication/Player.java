@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
-public class Player {
-    String name;
-    int score;
+import java.io.Serializable;
+
+public class Player implements Serializable {
+    private String name;
+    private int score;
 
 
     public Player(){
@@ -14,7 +16,7 @@ public class Player {
         this.score=score;
     }
 
-    public Player(String name,int score)
+    Player(String name, int score)
     {
 
         this.name=name;

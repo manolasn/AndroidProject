@@ -17,7 +17,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 /**
@@ -86,29 +88,16 @@ public class MainActivity extends AppCompatActivity {
 
         //Leaderboard button listener
         leaderboard.setOnClickListener(v -> {
+
             LeaderboardDatabase db=new LeaderboardDatabase(this);
-//            List<String> alist= db.getAllNames();
-//            List<Integer> blist =db.getAllScores();
-//
-            System.out.println("********LEADERBOARD*********\n");
-//
-//            for(int i=0;i<alist.size();i++)
-//            {
-//                System.out.println("Name :" + alist.get(i) + "  Score :" + blist.get(i));
-//            }
 
-            HashMap<String,Integer> aHash=db.getAll();
+            ArrayList<Player> aHash=db.getAll();
 
-            aHash.entrySet().forEach(stringStringEntry -> {
+            Collections.sort(aHash,xCompareBel);
 
-               // System.out.print("\n" + "Name : " + stringStringEntry.getKey()+" Score : "+ stringStringEntry.getValue());
-
-
-            });
-
-
-
-
+            Intent i=new Intent(this,LeaderBoard.class);
+            i.putExtra("LEADERBOARD",aHash);
+            startActivity(i);
 
 
 
@@ -150,10 +139,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * This method is called to when the button How To Play is pressed and opens HelpActivity
+     * This method is called to when the button How To Play is pressed and opens HowToPlay
      */
     public void openHelpnew(){
-        Intent intent = new Intent(this, HelpActivity.class);
+        Intent intent = new Intent(this, HowToPlay.class);
         startActivity(intent);
 
     }
@@ -244,6 +233,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
+    public Comparator<Player> xCompareBel = ((o1, o2) -> {
+       if(o1.getScore()!=o2.getScore())
+       {
+           return o2.getScore()-o1.getScore();
+       } else
+       {
+           return Integer.compare(o2.getName().compareTo(o1.getName()), 0);
+       }
+    });
 
 
 
