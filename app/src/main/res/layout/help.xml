@@ -15,14 +15,14 @@
 
         <TextView
             android:id="@+id/textview_first"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:background="@drawable/text_coustom_outline"
             android:fontFamily="casual"
             android:text="@string/how_to_play"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display2"
-            android:textColor="#000000"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="45sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
