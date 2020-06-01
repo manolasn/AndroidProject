@@ -60,7 +60,7 @@ public class EndOfTheGame extends AppCompatActivity {
                 .setDirection(-20.0 ,200.0)
                 .setSpeed(5f, 20f)
                 .setFadeOutEnabled(true)
-                .setTimeToLive(2000L)
+                .setTimeToLive(1000L)
                 .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
                 .addSizes(new Size(12, 5f))
                 .setPosition(500f, 500f, -50f, -50f)

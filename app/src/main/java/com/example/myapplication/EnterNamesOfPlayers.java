@@ -16,17 +16,26 @@ import android.os.Bundle;
 
 import android.os.IBinder;
 import android.os.PowerManager;
+
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
+
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
+
 
 
 /**
@@ -37,9 +46,12 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
     private HashMap<String,String> names_nicknames=new HashMap<>();
     private int number_of_players;
-    private EditText names,nicknames;
-    private TextView activity_title;
+    private EditText nicknames;
+    private AutoCompleteTextView names;
+    private TextView activity_title,hintnicknames;
     private ArrayList<String> mother_nicknames =new ArrayList<>();
+    private ArrayList<String> hint_nicknames =new ArrayList<>();
+    private TextInputLayout floatinghint1, floatinghint2;
     private Button submit_names;
     int click_count = 0 ;
     int mother_add_count = 0 ;
@@ -57,6 +69,26 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         names = findViewById(R.id.realname);
         nicknames = findViewById(R.id.nickname);
         submit_names = findViewById(R.id.button5);
+        hintnicknames = findViewById(R.id.text_hints);
+
+        floatinghint1 = findViewById(R.id.floating_hint);
+
+        floatinghint2 = findViewById(R.id.floating_hint_2);
+
+
+        LeaderboardDatabase db=new LeaderboardDatabase(this);
+
+        ArrayList<Player> aHash=db.getAll();
+
+        String [] temp=new String[aHash.size()];
+        for(int i=0;i<aHash.size();i++)
+        {
+            temp[i]=aHash.get(i).getName();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.custon_layout_hint, temp);
+        names.setThreshold(1);
+        names.setAdapter(adapter);
 
 
 
@@ -66,6 +98,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             music.setClass(this, MusicService.class);
             startService(music);
         }
+
 
 
         mHomeWatcher = new HomeWatcher(this);
@@ -89,10 +122,77 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
 
 
+        if(hintnicknames.getVisibility() == View.VISIBLE)
+        {
+            hintnicknames.setVisibility(View.INVISIBLE);
+        }
+
+        List<String> newList= Arrays.asList("Κομπολόι","source", "tooth", "merit" ,"kettle", "play" ,"precision" ,"equation" ,"transform" ,"trail", "reach" ,"delicate" ,"recovery", "empire", "post", "band", "delivery", "climate", "number", "flourish", "increase" ,"convince","bounce" ,"connection" ,"record", "hook","cross", "trade" ,"hostage" ,"menu", "delete", "offspring" ,"examination" ,"rob" ,"cherry" ,"hostile", "fit", "myth", "quote", "evaluate", "exposure", "warn", "consultation", "designer", "cooperate" ,"invite", "shape", "canvas" ,"chimpanzee" ,"ride","παπαπαπ",
+                "πηγή", "δόντι", "αξία", "βραστήρας", "παιχνίδι", "ακρίβεια", "εξίσωση", "μεταμόρφωση", "ίχνος", "προσέγγιση", "παπαρούνα", "ανάκτηση", "αυτοκρατορία "," ανάρτηση "," μπάντα "," παράδοση "," κλίμα "," αριθμός "," περικαμψύλιο "," αύξηση "," ανοχή "," αναπήδηση "," σύνδεση "," ηχογράφηση "," γάντζος ", "κορνίζα", "εμπόριο", "όμηρος", "rca", "διαγραφή", "απόγονος", "εξέταση", "ληστεία", "κεράσι", "εχθρικός", "θηλιά", "μύθος", "απόσπασμα "," αξιολόγηση "," έκθεση "," προειδοποίηση "," διαβούλευση "," σχεδιαστής "," συνεργασία "," πρόσκληση "," σχήμα "," καμβάς "," χιμπατζής "," βόλτα "," hyperX ");
+
+        hint_nicknames.addAll(newList);
+
+        names_nicknames.entrySet().forEach(stringStringEntry -> {
+            hint_nicknames.remove(stringStringEntry.getValue());
+        });
+
+        ToggleButton hint = findViewById(R.id.hint_button);
+        hint.setOnClickListener(v -> {
+
+            if(hint_nicknames.size()<7)
+            {
+                hint_nicknames.clear();
+                hint_nicknames.addAll(newList);
+            }
+
+
+
+            if(hint.isChecked()){
+
+                if(hintnicknames.getVisibility() == View.INVISIBLE)
+                {
+                    hintnicknames.append("Some nicknames :");
+                    for(int i=0; i<5&&i<hint_nicknames.size();i++)
+                    {
+
+                        hintnicknames.append("\n"+hint_nicknames.get(i));
+                        hint_nicknames.remove(i);
+                    }
+                    hintnicknames.setVisibility(View.VISIBLE);
+                }
+
+            }
+            else {
+
+                if(hintnicknames.getVisibility() == View.VISIBLE)
+                {
+                    hintnicknames.setVisibility(View.INVISIBLE);
+                    hintnicknames.setText("");
+                }
+
+            }
+        });
+
+
+
+
+
+
         final String[] motherName = {null};
         //The submit button listener is implemented here we count how many times its pressed to dynamically change the UI
         submit_names.setOnClickListener(v -> {
             click_count++;
+
+            if(hint.isChecked())
+            {
+                hint.setChecked(false);
+                if(hintnicknames.getVisibility() == View.VISIBLE)
+                {
+                    hintnicknames.setVisibility(View.INVISIBLE);
+                    hintnicknames.setText("");
+                }
+            }
+
             //This is where the programm goes when the mother added 2 nicknames and a new activity starts
             if (mother_add_count >2){
                 Intent i=new Intent(this, RandomizeNicknames.class);
@@ -130,17 +230,28 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             //Here we check if all players have clicked the submit button, thus they entered they credentials and we randomly choose the mother
             else if(click_count == number_of_players)
             {
+                floatinghint1.setHint("");
+                floatinghint2.setHint("");
                 activity_title.setText("Now give the device to the \"mother\" and the game begins, have fun .");
+                if(hintnicknames.getVisibility() == View.VISIBLE)
+                {
+                    hintnicknames.setVisibility(View.INVISIBLE);
+                    hintnicknames.setText("");
+                }
+                if(hint.getVisibility() == View.VISIBLE)
+                {
+                    hint.setVisibility(View.INVISIBLE);
+                }
                 submit_names.setText("OK !");
                 names_nicknames.put(names.getText().toString(),nicknames.getText().toString());
                 Random random = new Random();
                 List<String> keys = new ArrayList<>(names_nicknames.keySet());
                 motherName[0] = keys.get(random.nextInt(keys.size()));
-                nicknames.setBackgroundColor(Color.GREEN);
                 Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to " + motherName[0] + ".", Toast.LENGTH_SHORT).show();
 
                 names.setText("The mother is :");
                 nicknames.setText(motherName[0]+" !");
+
 
                 names.setFocusableInTouchMode(false);
                 nicknames.setFocusableInTouchMode(false);
@@ -149,10 +260,15 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             //Here as the mother is chosen the UI dynamically changes again by counting the clicks on the submit button and we ask for 2 more nicknames from the mother.
             else if(click_count > number_of_players){
                 //Open new activity with known orginizer and all nicknames and names in hashmap
-                activity_title.setText("Mother has to submit 2 more nicknames.");
-                names.setVisibility(View.GONE);
                 nicknames.setFocusableInTouchMode(true);
-                nicknames.setBackgroundColor(Color.WHITE);
+                activity_title.setText("Mother has to submit 2 more nicknames.");
+                floatinghint2.setHint("Insert nickname");
+                if(hint.getVisibility() == View.INVISIBLE)
+                {
+                    hint.setVisibility(View.VISIBLE);
+                }
+                names.setVisibility(View.GONE);
+
 
                 submit_names.setText("SUBMIT");
                 if(mother_add_count <2&& click_count > number_of_players +1) {
@@ -177,6 +293,15 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                         activity_title.setText("They game shall now start.");
                         nicknames.setVisibility(View.GONE);
                         submit_names.setText("OK !");
+                        if(hintnicknames.getVisibility() == View.VISIBLE)
+                        {
+                            hintnicknames.setVisibility(View.INVISIBLE);
+                            hintnicknames.setText("");
+                        }
+                        if(hint.getVisibility() == View.VISIBLE)
+                        {
+                            hint.setVisibility(View.INVISIBLE);
+                        }
                     }
 
                 }
@@ -277,5 +402,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
+
+
 }
 

@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.textfield.TextInputLayout;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -36,6 +38,7 @@ public class DisplayEverything extends AppCompatActivity {
     private ArrayList<String> mother_nicknames =new ArrayList<>();
     private TextView title_mother;
     private TextView title_players;
+    private TextInputLayout floatinghint4;
     private TextView player_that_gets_points,timer_text;
     private Button add_1_point,add_2_points,next_round,timer,endRound;
     private long timeLeftMillsec,tempMillsec;
@@ -51,15 +54,16 @@ public class DisplayEverything extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_everything);
-        title_mother=findViewById(R.id.textView5);
-        title_players=findViewById(R.id.textView6);
-        player_that_gets_points=findViewById(R.id.add_points_name);
-        add_1_point=findViewById(R.id.button_1_point);
-        add_2_points=findViewById(R.id.button_2_points);
-        next_round=findViewById(R.id.button6);
-        timer=findViewById(R.id.button_timer);
-        timer_text=findViewById(R.id.timer_text);
-        endRound=findViewById(R.id.buttonendround);
+        title_mother = findViewById(R.id.textView5);
+        title_players = findViewById(R.id.textView6);
+        player_that_gets_points = findViewById(R.id.add_points_name);
+        add_1_point = findViewById(R.id.button_1_point);
+        add_2_points = findViewById(R.id.button_2_points);
+        next_round = findViewById(R.id.button6);
+        timer = findViewById(R.id.button_timer);
+        timer_text = findViewById(R.id.timer_text);
+        endRound = findViewById(R.id.buttonendround);
+        floatinghint4 = findViewById(R.id.floating_hint_4);
 
 
         if(!Assisting_Class.getMute()) {
@@ -132,20 +136,23 @@ public class DisplayEverything extends AppCompatActivity {
 
 
         //We hide some UI elements that we dont need for now.
-        if(player_that_gets_points.getVisibility()==View.VISIBLE)
+        if(player_that_gets_points.getVisibility() == View.VISIBLE)
         {
             player_that_gets_points.setVisibility(View.INVISIBLE);
+            floatinghint4.setVisibility(View.INVISIBLE);
+
         }
 
-        if(add_1_point.getVisibility()== View.VISIBLE)
+        if(add_1_point.getVisibility() == View.VISIBLE)
         {
             add_1_point.setVisibility(View.INVISIBLE);
         }
 
-        if(add_2_points.getVisibility()== View.VISIBLE)
+        if(add_2_points.getVisibility() == View.VISIBLE)
         {
             add_2_points.setVisibility(View.INVISIBLE);
         }
+
 
 
         //Buttons that add 1 point and 2 points are implemented here
@@ -293,7 +300,6 @@ public class DisplayEverything extends AppCompatActivity {
 
            }
 
-            System.out.print("\n");
             if(scoreboard!=null) {
                 scoreboard.entrySet().forEach(stringStringEntry -> System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue()));
                 Assisting_Class.setScoreboard(scoreboard);
@@ -370,6 +376,7 @@ public class DisplayEverything extends AppCompatActivity {
             }
             if (player_that_gets_points.getVisibility() == View.INVISIBLE) {
                 player_that_gets_points.setVisibility(View.VISIBLE);
+                floatinghint4.setVisibility(View.VISIBLE);
             }
 
         });

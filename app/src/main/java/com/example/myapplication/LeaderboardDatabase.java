@@ -130,7 +130,7 @@ public class LeaderboardDatabase extends SQLiteOpenHelper {
             do{
                 playerList.add(new Player(cursor.getString(0),cursor.getInt(1)));
 
-                System.out.println(cursor.getString(0)+"   "+cursor.getInt(1));
+//                System.out.println(cursor.getString(0)+"   "+cursor.getInt(1));
 
             } while (cursor.moveToNext());
         }
