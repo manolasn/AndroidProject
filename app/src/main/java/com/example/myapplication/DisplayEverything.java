@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -20,10 +21,13 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,6 +51,7 @@ public class DisplayEverything extends AppCompatActivity {
     private MediaPlayer timer_sound;
     private HomeWatcher mHomeWatcher;
     private CountDownTimer count_down;
+    private ImageView click_icon;
     private boolean countrunning;
     private LeaderboardDatabase db=new LeaderboardDatabase(this);
 
@@ -66,6 +71,7 @@ public class DisplayEverything extends AppCompatActivity {
         timer_text = findViewById(R.id.timer_text);
         endRound = findViewById(R.id.buttonendround);
         floatinghint4 = findViewById(R.id.floating_hint_4);
+        click_icon = findViewById(R.id.imageView);
 
 
         if(!Assisting_Class.getMute()) {
@@ -160,6 +166,10 @@ public class DisplayEverything extends AppCompatActivity {
 
         }
 
+        if(click_icon.getVisibility() == View.VISIBLE) {
+            click_icon.setVisibility(View.INVISIBLE);
+        }
+
         if(add_1_point.getVisibility() == View.VISIBLE)
         {
             add_1_point.setVisibility(View.INVISIBLE);
@@ -212,6 +222,11 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
+                if(next_round.getVisibility() == View.INVISIBLE) {
+
+                    next_round.setVisibility(View.VISIBLE);
+
+                }
 
                 Toast.makeText(DisplayEverything.this, "1 point was added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
 
@@ -269,8 +284,11 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
+                if(next_round.getVisibility() == View.INVISIBLE) {
 
+                    next_round.setVisibility(View.VISIBLE);
 
+                }
 
                 Toast.makeText(DisplayEverything.this, "2 points were added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
 
@@ -289,7 +307,11 @@ public class DisplayEverything extends AppCompatActivity {
 
         });
 
-        next_round.setEnabled(false);
+        if(next_round.getVisibility() == View.VISIBLE) {
+
+            next_round.setVisibility(View.INVISIBLE);
+
+        }
 
         //Each time next round button is pressed we check if one or more players' points have exceeded 3 points and we announce them winners
         next_round.setOnClickListener(v -> {
@@ -322,7 +344,7 @@ public class DisplayEverything extends AppCompatActivity {
                 Assisting_Class.setScoreboard(scoreboard);
             }
             //if at least one player has more that 3 points we end the game else we go to the next round
-            if(maxScore>=3){
+            if(maxScore>2){
                 Intent i=new Intent(this,EndOfTheGame.class);
                 i.putExtra("WINNER",winner);
                 i.putExtra("PLAYERS",names_nicknames);
@@ -340,6 +362,77 @@ public class DisplayEverything extends AppCompatActivity {
         });
 
 
+
+        timer_text.setOnClickListener(v -> {
+
+
+
+            if(countrunning)
+            {
+                count_down.cancel();
+                if(timer_sound!=null) {
+
+                    timer_sound.release();
+
+                }
+            }
+
+            if(timer.getVisibility()==View.INVISIBLE){
+                timer.setVisibility(View.VISIBLE);
+                click_icon.setVisibility(View.INVISIBLE);
+            }
+
+            if(timesTimerPressed==6) {
+
+                if(next_round.getVisibility() == View.INVISIBLE) {
+
+                    next_round.setVisibility(View.VISIBLE);
+
+                }
+
+                if(endRound.getVisibility()==View.VISIBLE){
+
+                    endRound.setVisibility(View.INVISIBLE);
+
+                }
+
+                if(timer.getVisibility() == View.VISIBLE) {
+
+                    timer.setVisibility(View.INVISIBLE);
+
+                }
+
+                if (timer_text.getVisibility() == View.VISIBLE) {
+
+                    timer_text.setVisibility(View.INVISIBLE);
+                    click_icon.setVisibility(View.INVISIBLE);
+
+                }
+
+                if (add_1_point.getVisibility() == View.INVISIBLE) {
+
+                    add_1_point.setVisibility(View.VISIBLE);
+
+                }
+
+                if (add_2_points.getVisibility() == View.INVISIBLE) {
+
+                    add_2_points.setVisibility(View.VISIBLE);
+
+                }
+
+                player_that_gets_points.setVisibility(View.VISIBLE);
+
+                floatinghint4.setVisibility(View.VISIBLE);
+
+
+
+            }
+
+            timeLeftMillsec=tempMillsec;
+        });
+
+
         //We use timer each time a team has a chance to find all nicknames and end the round
         timer.setOnClickListener(v -> {
             if(timer.getVisibility()== View.VISIBLE)
@@ -348,6 +441,7 @@ public class DisplayEverything extends AppCompatActivity {
             }
 
             timesTimerPressed++;
+            timer.setText("START TIMER "+(timesTimerPressed+1));
 
             startTimer();
 
@@ -357,16 +451,14 @@ public class DisplayEverything extends AppCompatActivity {
         //If a team finds the nicknames before all the tries are used the game ends abruptly and we go to the next round
         endRound.setOnClickListener(v -> {
 
-            next_round.setEnabled(true);
-
 
            if(countrunning)
            {
                count_down.cancel();
                if(timer_sound!=null) {
-                   if (timer_sound.isPlaying()) {
-                       timer_sound.release();
-                   }
+
+                   timer_sound.release();
+
                }
            }
 
@@ -384,6 +476,8 @@ public class DisplayEverything extends AppCompatActivity {
 
             if (timer_text.getVisibility() == View.VISIBLE) {
                 timer_text.setVisibility(View.INVISIBLE);
+                click_icon.setVisibility(View.INVISIBLE);
+
             }
             if (add_1_point.getVisibility() == View.INVISIBLE) {
                 add_1_point.setVisibility(View.VISIBLE);
@@ -422,6 +516,9 @@ public class DisplayEverything extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 countrunning=true;
+                if(click_icon.getVisibility() == View.INVISIBLE) {
+                    click_icon.setVisibility(View.VISIBLE);
+                }
                 timeLeftMillsec = millisUntilFinished;
                 if (timeLeftMillsec / 1000 == 11) {
                     play_sound();
@@ -437,7 +534,6 @@ public class DisplayEverything extends AppCompatActivity {
                 countrunning=false;
 
                 if(timesTimerPressed==6) {
-                    next_round.setEnabled(true);
 
                     if(endRound.getVisibility()==View.VISIBLE)
                     {
@@ -446,6 +542,7 @@ public class DisplayEverything extends AppCompatActivity {
 
                     if (timer_text.getVisibility() == View.VISIBLE) {
                         timer_text.setVisibility(View.INVISIBLE);
+                        click_icon.setVisibility(View.INVISIBLE);
                     }
                     if (add_1_point.getVisibility() == View.INVISIBLE) {
                         add_1_point.setVisibility(View.VISIBLE);
@@ -455,6 +552,7 @@ public class DisplayEverything extends AppCompatActivity {
                     }
                     if (player_that_gets_points.getVisibility() == View.INVISIBLE) {
                         player_that_gets_points.setVisibility(View.VISIBLE);
+                        floatinghint4.setVisibility(View.VISIBLE);
                     }
                 }
                 else if(timer.getVisibility()== View.INVISIBLE)
@@ -463,8 +561,11 @@ public class DisplayEverything extends AppCompatActivity {
                     timer.setVisibility(View.VISIBLE);
                 }
 
-                timer_sound.stop();
-                timer_sound.release();
+                if(timer_sound!=null) {
+                    if (timer_sound.isPlaying()) {
+                        timer_sound.release();
+                    }
+                }
 
 
             }
@@ -598,4 +699,6 @@ public class DisplayEverything extends AppCompatActivity {
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
+
+
 }
