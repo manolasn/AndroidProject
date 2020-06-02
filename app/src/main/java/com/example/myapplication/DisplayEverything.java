@@ -17,6 +17,8 @@ import android.os.IBinder;
 import android.os.PowerManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +27,6 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 /**
  * This activity is used to display all the information to the mother as when the round has ended to add points to the winning players
  * and if one of them has more than 3 points wins and the game ends
@@ -39,7 +40,8 @@ public class DisplayEverything extends AppCompatActivity {
     private TextView title_mother;
     private TextView title_players;
     private TextInputLayout floatinghint4;
-    private TextView player_that_gets_points,timer_text;
+    private TextView timer_text;
+    private AutoCompleteTextView player_that_gets_points;
     private Button add_1_point,add_2_points,next_round,timer,endRound;
     private long timeLeftMillsec,tempMillsec;
     private MediaPlayer timer_sound;
@@ -73,7 +75,6 @@ public class DisplayEverything extends AppCompatActivity {
             startService(music);
         }
 
-
         mHomeWatcher = new HomeWatcher(this);
         mHomeWatcher.setOnHomePressedListener(new HomeWatcher.OnHomePressedListener() {
             @Override
@@ -99,6 +100,22 @@ public class DisplayEverything extends AppCompatActivity {
         String mother=getIntent().getStringExtra("MOTHER");
 
         mother_nicknames =(ArrayList<String>)(getIntent().getSerializableExtra("MOTHERNAMES"));
+
+        String[] temp1 =new String[names_nicknames.size()+1];
+        temp1[0]=mother;
+
+        final int[] index = {1};
+        names_nicknames.entrySet().forEach(stringStringEntry -> {
+
+            temp1[index[0]]=stringStringEntry.getKey();
+            index[0]++;
+
+
+        });
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.custon_layout_hint, temp1);
+        player_that_gets_points.setThreshold(1);
+        player_that_gets_points.setAdapter(adapter);
 
         //Here we set the timers according to the number of players
         if(names_nicknames.size()+1==3)

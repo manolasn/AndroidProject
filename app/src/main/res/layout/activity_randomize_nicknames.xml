@@ -36,7 +36,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="casual"
-            android:text="@string/mother_nicknames"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/design_default_color_on_secondary"

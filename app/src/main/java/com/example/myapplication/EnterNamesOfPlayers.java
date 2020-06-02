@@ -34,8 +34,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
+import pl.droidsonroids.gif.GifImageView;
 
 
 /**
@@ -43,7 +45,6 @@ import java.util.Random;
  * one by one their name and we put it in a HashMap as key the name and value nickname
  */
 public class EnterNamesOfPlayers extends AppCompatActivity {
-
     private HashMap<String,String> names_nicknames=new HashMap<>();
     private int number_of_players;
     private EditText nicknames;
@@ -56,10 +57,11 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     int click_count = 0 ;
     int mother_add_count = 0 ;
     private HomeWatcher mHomeWatcher;
+    private GifImageView gifanimation;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,10 +72,14 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         nicknames = findViewById(R.id.nickname);
         submit_names = findViewById(R.id.button5);
         hintnicknames = findViewById(R.id.text_hints);
-
         floatinghint1 = findViewById(R.id.floating_hint);
-
         floatinghint2 = findViewById(R.id.floating_hint_2);
+        gifanimation = findViewById(R.id.gif_animation);
+
+        if(gifanimation.getVisibility() == View.VISIBLE)
+        {
+            gifanimation.setVisibility(View.INVISIBLE);
+        }
 
 
         LeaderboardDatabase db=new LeaderboardDatabase(this);
@@ -230,6 +236,9 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             //Here we check if all players have clicked the submit button, thus they entered they credentials and we randomly choose the mother
             else if(click_count == number_of_players)
             {
+                InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                assert inputManager != null;
+                inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 floatinghint1.setHint("");
                 floatinghint2.setHint("");
                 activity_title.setText("Now give the device to the \"mother\" and the game begins, have fun .");
@@ -253,8 +262,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 nicknames.setText(motherName[0]+" !");
 
 
-                names.setFocusableInTouchMode(false);
-                nicknames.setFocusableInTouchMode(false);
+                names.setFocusable(false);
+                nicknames.setFocusable(false);
 
             }
             //Here as the mother is chosen the UI dynamically changes again by counting the clicks on the submit button and we ask for 2 more nicknames from the mother.
@@ -285,18 +294,23 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                         Toast.makeText(EnterNamesOfPlayers.this, "Nickname : " + nicknames.getText().toString() + " added successfully.", Toast.LENGTH_SHORT).show();
 
                     }
-
                     if (mother_add_count == 2)
                     {
+                        InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        assert inputManager != null;
+                        inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                         mother_add_count++;
                         activity_title.setText("");
                         activity_title.setText("They game shall now start.");
                         nicknames.setVisibility(View.GONE);
                         submit_names.setText("OK !");
+                        if(gifanimation.getVisibility() == View.INVISIBLE)
+                        {
+                            gifanimation.setVisibility(View.VISIBLE);
+                        }
                         if(hintnicknames.getVisibility() == View.VISIBLE)
                         {
                             hintnicknames.setVisibility(View.INVISIBLE);
-                            hintnicknames.setText("");
                         }
                         if(hint.getVisibility() == View.VISIBLE)
                         {

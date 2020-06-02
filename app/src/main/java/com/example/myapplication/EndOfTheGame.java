@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.text.method.ScrollingMovementMethod;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -49,22 +51,27 @@ public class EndOfTheGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_end_of_the_game);
 
-        playAgain=findViewById(R.id.buttonnewgame);
-        menu=findViewById(R.id.buttonmenu);
+        playAgain = findViewById(R.id.buttonnewgame);
+        menu = findViewById(R.id.buttonmenu);
         score = findViewById(R.id.textViewscore);
+
+        score.setMovementMethod(new ScrollingMovementMethod());
+
+
+
 
         //Here we are using the n1.dionsegijn:konfetti external library to make some animations when winner is found.
         final KonfettiView konfettiView = findViewById(R.id.viewKonfetti);
         konfettiView.build()
                 .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
                 .setDirection(-20.0 ,200.0)
-                .setSpeed(5f, 20f)
+                .setSpeed(5f, 15f)
                 .setFadeOutEnabled(true)
-                .setTimeToLive(1000L)
+                .setTimeToLive(2000L)
                 .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
                 .addSizes(new Size(12, 5f))
                 .setPosition(500f, 500f, -50f, -50f)
-                .streamFor(500, 2000L);
+                .streamFor(1000, 1500L);
 
         //Winning sound
         player = MediaPlayer.create(this,R.raw.win_sound);

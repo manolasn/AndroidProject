@@ -3,6 +3,8 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
+    ndkVersion "21.2.6472646"
+
 
     defaultConfig {
         applicationId "com.example.myapplication"
@@ -43,4 +45,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.android.support:design:29.0.3'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.20'
 }

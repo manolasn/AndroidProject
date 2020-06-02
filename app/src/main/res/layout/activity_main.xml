@@ -91,15 +91,15 @@
             android:layout_width="52dp"
             android:layout_height="46dp"
             android:layout_marginTop="80dp"
-            android:backgroundTint="#9E000000"
+            android:backgroundTint="#90000000"
             android:contentDescription="@string/todo"
+            android:src="@android:drawable/ic_lock_silent_mode"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_leaderboard"
-            app:layout_constraintVertical_bias="0.0"
-            style="@style/Widget.MaterialComponents.Button.TextButton"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/button_play"

@@ -87,7 +87,7 @@ public class RandomizeNicknames extends AppCompatActivity {
 
 
 
-
+        activity_title.append("Read the nicknames aloud 3 times :");
         for (int i = 0; i< all_nicknames.size(); i++)
         {
             activity_title.append( "\n" +  (i+1) + " : " + all_nicknames.get(i));
@@ -110,7 +110,7 @@ public class RandomizeNicknames extends AppCompatActivity {
 
             activity_title.setText("");
 
-
+            activity_title.append("Read the nicknames aloud 3 times :");
 
             while (!all_nicknames.isEmpty())
             {
