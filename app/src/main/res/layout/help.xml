@@ -58,6 +58,7 @@
             android:scrollbars="vertical"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textColor="@color/design_default_color_on_secondary"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
