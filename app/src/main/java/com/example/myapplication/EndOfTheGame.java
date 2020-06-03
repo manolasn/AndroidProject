@@ -55,6 +55,8 @@ public class EndOfTheGame extends AppCompatActivity {
         playAgain = findViewById(R.id.buttonnewgame);
         menu = findViewById(R.id.buttonmenu);
         score = findViewById(R.id.textViewscore);
+        winner=findViewById(R.id.textView7);
+        winners =(ArrayList<String>) getIntent().getSerializableExtra("WINNER");
 
         score.setMovementMethod(new ScrollingMovementMethod());
 
@@ -110,9 +112,6 @@ public class EndOfTheGame extends AppCompatActivity {
         });
         mHomeWatcher.startWatch();
 
-        winner=findViewById(R.id.textView7);
-
-        winners =(ArrayList<String>) getIntent().getSerializableExtra("WINNER");
 
 
         assert winners != null;

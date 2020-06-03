@@ -9,7 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.graphics.Color;
+
 
 import android.os.Build;
 import android.os.Bundle;
@@ -18,15 +18,13 @@ import android.os.IBinder;
 import android.os.PowerManager;
 
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputConnection;
+
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
@@ -72,6 +70,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_names_of_players);
+
         number_of_players = getIntent().getIntExtra("NUM_PLAYERS",0);
         activity_title = findViewById(R.id.textView4);
         names = findViewById(R.id.realname);
@@ -82,6 +81,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         floatinghint2 = findViewById(R.id.floating_hint_2);
         gifanimation = findViewById(R.id.gif_animation);
         contextView = findViewById(R.id.enter_names_act);
+        ToggleButton hint = findViewById(R.id.hint_button);
+
 
         if(gifanimation.getVisibility() == View.VISIBLE)
         {
@@ -89,6 +90,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         }
 
 
+        //From line 93 to 106 is auto fill name function
         LeaderboardDatabase db=new LeaderboardDatabase(this);
 
         ArrayList<Player> aHash=db.getAll();
@@ -149,7 +151,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             hint_nicknames.remove(stringStringEntry.getValue());
         });
 
-        ToggleButton hint = findViewById(R.id.hint_button);
+
         hint.setOnClickListener(v -> {
 
             if(hint_nicknames.size()<7)
@@ -196,6 +198,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         submit_names.setOnClickListener(v -> {
             click_count++;
 
+            //Hide hint if a player left it open
             if(hint.isChecked())
             {
                 hint.setChecked(false);
@@ -206,7 +209,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 }
             }
 
-            //This is where the programm goes when the mother added 2 nicknames and a new activity starts
+            //This is where the program goes when the mother added 2 nicknames and a new activity starts
             if (mother_add_count >2){
                 Intent i=new Intent(this, RandomizeNicknames.class);
 
@@ -222,11 +225,11 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 click_count--;
                 //Here it means that we are at the screen that mother adds 2 more nicknames
                 if(click_count>=number_of_players){
-                    Snackbar.make(contextView, "Please insert a nickname", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                    Snackbar.make(contextView, "Please insert a nickname.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                             .getColor(R.color.colorAccent)).show();
                 }
                 else {
-                    Snackbar.make(contextView,"Please insert both a name and a nickname", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                    Snackbar.make(contextView,"Please insert both username and nickname.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                             .getColor(R.color.colorAccent)).show();
                 }
             }
@@ -289,10 +292,11 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 {
                     hint.setVisibility(View.VISIBLE);
                 }
+
                 names.setVisibility(View.GONE);
 
-
                 submit_names.setText("SUBMIT");
+
                 if(mother_add_count <2&& click_count > number_of_players +1) {
                     mother_add_count++;
 
@@ -320,6 +324,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                         activity_title.setText("They game shall now start.");
                         nicknames.setVisibility(View.GONE);
                         submit_names.setText("OK !");
+                        //We use this external library : pl.droidsonroids.gif:android-gif-drawable:1.2.20 to use a GifView
                         if(gifanimation.getVisibility() == View.INVISIBLE)
                         {
                             gifanimation.setVisibility(View.VISIBLE);
@@ -345,7 +350,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             else {
                 names_nicknames.put(names.getText().toString().replaceAll("\\s",""),nicknames.getText().toString().replaceAll("\\s",""));
 
-                Snackbar.make(contextView,names.getText().toString() +" submitted his nickname, pass the phone to the next player.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView,names.getText().toString() +" submitted his nickname successfully, pass the phone to the next player.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
                 names.setText("");
@@ -394,7 +399,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             mServ.resumeMusic();
         }
     }
-
+//TODO WHEN GOING FROM PORTRAIT TO LANDSCAPE COUNTER REFRESHES AND ASK FOR THE WHOLE NUMBER OF PLAYERS
     @Override
     protected void onPause() {
         super.onPause();

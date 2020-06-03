@@ -2,7 +2,6 @@ package com.example.myapplication;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -23,7 +22,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
@@ -46,7 +44,7 @@ public class DisplayEverything extends AppCompatActivity {
     private TextInputLayout floatinghint4;
     private TextView timer_text;
     private AutoCompleteTextView player_that_gets_points;
-    private Button add_1_point,add_2_points,next_round,timer,endRound;
+    private Button add_1_point,add_2_points,next_round, timer_button,endRound;
     private long timeLeftMillsec,tempMillsec;
     private MediaPlayer timer_sound;
     private HomeWatcher mHomeWatcher;
@@ -70,7 +68,7 @@ public class DisplayEverything extends AppCompatActivity {
         add_1_point = findViewById(R.id.button_1_point);
         add_2_points = findViewById(R.id.button_2_points);
         next_round = findViewById(R.id.button6);
-        timer = findViewById(R.id.button_timer);
+        timer_button = findViewById(R.id.button_timer);
         timer_text = findViewById(R.id.timer_text);
         endRound = findViewById(R.id.buttonendround);
         floatinghint4 = findViewById(R.id.floating_hint_4);
@@ -111,6 +109,7 @@ public class DisplayEverything extends AppCompatActivity {
 
         mother_nicknames =(ArrayList<String>)(getIntent().getSerializableExtra("MOTHERNAMES"));
 
+        //Here is the auto fill for add score texview from players that are registered in current session(lines 113-128)
         String[] temp1 =new String[names_nicknames.size()+1];
         temp1[0]=mother;
 
@@ -122,6 +121,7 @@ public class DisplayEverything extends AppCompatActivity {
 
 
         });
+
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.custon_layout_hint, temp1);
         player_that_gets_points.setThreshold(1);
@@ -233,7 +233,7 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                Snackbar.make(contextView, "1 point was added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView, "1 point added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
                 player_that_gets_points.setText("");
@@ -297,7 +297,7 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                Snackbar.make(contextView, "2 points were added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView, "2 points added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
                 player_that_gets_points.setText("");
@@ -385,8 +385,8 @@ public class DisplayEverything extends AppCompatActivity {
                 }
             }
 
-            if(timer.getVisibility()==View.INVISIBLE){
-                timer.setVisibility(View.VISIBLE);
+            if(timer_button.getVisibility()==View.INVISIBLE){
+                timer_button.setVisibility(View.VISIBLE);
                 click_icon.setVisibility(View.INVISIBLE);
                 timer_text.setVisibility(View.INVISIBLE);
             }
@@ -405,9 +405,9 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                if(timer.getVisibility() == View.VISIBLE) {
+                if(timer_button.getVisibility() == View.VISIBLE) {
 
-                    timer.setVisibility(View.INVISIBLE);
+                    timer_button.setVisibility(View.INVISIBLE);
 
                 }
 
@@ -437,14 +437,14 @@ public class DisplayEverything extends AppCompatActivity {
 
 
         //We use timer each time a team has a chance to find all nicknames and end the round
-        timer.setOnClickListener(v -> {
-            if(timer.getVisibility()== View.VISIBLE)
+        timer_button.setOnClickListener(v -> {
+            if(timer_button.getVisibility()== View.VISIBLE)
             {
-                timer.setVisibility(View.INVISIBLE);
+                timer_button.setVisibility(View.INVISIBLE);
             }
 
             timesTimerPressed++;
-            timer.setText("START TIMER "+(timesTimerPressed+1));
+            timer_button.setText("START TIMER "+(timesTimerPressed+1));
 
             startTimer();
 
@@ -473,8 +473,8 @@ public class DisplayEverything extends AppCompatActivity {
                 endRound.setVisibility(View.INVISIBLE);
             }
 
-            if(timer.getVisibility()==View.VISIBLE){
-                timer.setVisibility(View.INVISIBLE);
+            if(timer_button.getVisibility()==View.VISIBLE){
+                timer_button.setVisibility(View.INVISIBLE);
             }
 
             if (timer_text.getVisibility() == View.VISIBLE) {
@@ -555,10 +555,10 @@ public class DisplayEverything extends AppCompatActivity {
                         floatinghint4.setVisibility(View.VISIBLE);
                     }
                 }
-                else if(timer.getVisibility()== View.INVISIBLE)
+                else if(timer_button.getVisibility()== View.INVISIBLE)
                 {
                     timeLeftMillsec=tempMillsec;
-                    timer.setVisibility(View.VISIBLE);
+                    timer_button.setVisibility(View.VISIBLE);
                 }
 
                 if(click_icon.getVisibility() == View.VISIBLE)

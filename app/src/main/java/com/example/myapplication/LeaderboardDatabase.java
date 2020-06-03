@@ -84,7 +84,7 @@ public class LeaderboardDatabase extends SQLiteOpenHelper {
 
 
     /**
-     *  This method returna a list of all players' names that are in the database
+     *  This method return a list of all players' names that are in the database
      * @return the list of players
      */
     List<String> getAllNames(){

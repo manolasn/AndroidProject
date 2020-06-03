@@ -47,6 +47,7 @@ public class LeaderBoard extends AppCompatActivity {
             Intent i=new Intent(this,MainActivity.class);
             startActivity(i);
         });
+
         if(!Assisting_Class.getMute()) {
             doBindService();
             Intent music = new Intent();

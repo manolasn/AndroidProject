@@ -8,6 +8,20 @@ class Assisting_Class {
 
         private static HashMap<String,Integer> scoreboard=new HashMap<>();
 
+        private static int player_count;
+
+        public static int getPlayer_count() {
+                 return player_count;
+        }
+
+        public static void setPlayer_count(int player_count)
+        {
+
+           Assisting_Class.player_count = player_count;
+
+        }
+
+
         private static boolean mute=false;
 
 

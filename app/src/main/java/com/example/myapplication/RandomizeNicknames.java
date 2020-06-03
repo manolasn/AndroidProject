@@ -42,8 +42,12 @@ public class RandomizeNicknames extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_randomize_nicknames);
 
-        names_nicknames= (HashMap<String, String>) (getIntent().getSerializableExtra("NAMES_NICKNAMES"));
+        Button randomize = findViewById(R.id.button3);
+        Button done = findViewById(R.id.button_done);
         String mother=getIntent().getStringExtra("MOTHER");
+        activity_title =findViewById(R.id.textView9);
+
+        names_nicknames= (HashMap<String, String>) (getIntent().getSerializableExtra("NAMES_NICKNAMES"));
 
         mother_nicknames =(ArrayList<String>)(getIntent().getSerializableExtra("MOTHERNAMES"));
 
@@ -51,9 +55,8 @@ public class RandomizeNicknames extends AppCompatActivity {
             mother_nicknames.add(names_nicknames.get(mother));
         }
 
-        activity_title =findViewById(R.id.textView9);
-        Button randomize = findViewById(R.id.button3);
-        Button done = findViewById(R.id.button_done);
+
+
 
         names_nicknames.remove(mother);
 
