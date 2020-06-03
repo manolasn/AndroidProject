@@ -27,7 +27,6 @@ import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputLayout;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -168,6 +167,7 @@ public class DisplayEverything extends AppCompatActivity {
 
         if(click_icon.getVisibility() == View.VISIBLE) {
             click_icon.setVisibility(View.INVISIBLE);
+            timer_text.setVisibility(View.INVISIBLE);
         }
 
         if(add_1_point.getVisibility() == View.VISIBLE)
@@ -380,6 +380,7 @@ public class DisplayEverything extends AppCompatActivity {
             if(timer.getVisibility()==View.INVISIBLE){
                 timer.setVisibility(View.VISIBLE);
                 click_icon.setVisibility(View.INVISIBLE);
+                timer_text.setVisibility(View.INVISIBLE);
             }
 
             if(timesTimerPressed==6) {
@@ -402,12 +403,6 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                if (timer_text.getVisibility() == View.VISIBLE) {
-
-                    timer_text.setVisibility(View.INVISIBLE);
-                    click_icon.setVisibility(View.INVISIBLE);
-
-                }
 
                 if (add_1_point.getVisibility() == View.INVISIBLE) {
 
@@ -518,6 +513,7 @@ public class DisplayEverything extends AppCompatActivity {
                 countrunning=true;
                 if(click_icon.getVisibility() == View.INVISIBLE) {
                     click_icon.setVisibility(View.VISIBLE);
+                    timer_text.setVisibility(View.VISIBLE);
                 }
                 timeLeftMillsec = millisUntilFinished;
                 if (timeLeftMillsec / 1000 == 11) {
@@ -540,10 +536,6 @@ public class DisplayEverything extends AppCompatActivity {
                         endRound.setVisibility(View.INVISIBLE);
                     }
 
-                    if (timer_text.getVisibility() == View.VISIBLE) {
-                        timer_text.setVisibility(View.INVISIBLE);
-                        click_icon.setVisibility(View.INVISIBLE);
-                    }
                     if (add_1_point.getVisibility() == View.INVISIBLE) {
                         add_1_point.setVisibility(View.VISIBLE);
                     }
@@ -561,6 +553,12 @@ public class DisplayEverything extends AppCompatActivity {
                     timer.setVisibility(View.VISIBLE);
                 }
 
+                if(click_icon.getVisibility() == View.VISIBLE)
+                {
+                    timer_text.setVisibility(View.INVISIBLE);
+                    click_icon.setVisibility(View.INVISIBLE);
+                }
+//TODO:531c4854a33de2fa crash report number
                 if(timer_sound!=null) {
                     if (timer_sound.isPlaying()) {
                         timer_sound.release();

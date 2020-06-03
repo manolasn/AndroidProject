@@ -18,6 +18,8 @@ import android.os.IBinder;
 import android.os.PowerManager;
 
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -416,7 +418,6 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
-
 
 }
 
