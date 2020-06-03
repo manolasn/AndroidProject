@@ -21,6 +21,8 @@ import android.widget.TextView;
 public class HowToPlay extends AppCompatActivity {
 
     private HomeWatcher mHomeWatcher;
+    private boolean mIsBound = false;
+    private MusicService mServ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,8 +83,6 @@ public class HowToPlay extends AppCompatActivity {
     /**
      * This code is for Media Player playing on background
      */
-    private boolean mIsBound = false;
-    private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder

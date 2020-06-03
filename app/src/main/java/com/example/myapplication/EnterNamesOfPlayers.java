@@ -30,6 +30,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -60,6 +61,9 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     int mother_add_count = 0 ;
     private HomeWatcher mHomeWatcher;
     private GifImageView gifanimation;
+    private View contextView ;
+    private boolean mIsBound = false;
+    private MusicService mServ;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -77,6 +81,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         floatinghint1 = findViewById(R.id.floating_hint);
         floatinghint2 = findViewById(R.id.floating_hint_2);
         gifanimation = findViewById(R.id.gif_animation);
+        contextView = findViewById(R.id.enter_names_act);
 
         if(gifanimation.getVisibility() == View.VISIBLE)
         {
@@ -215,23 +220,28 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             else if(names.getText().toString().replaceAll("\\s","").equals("") || nicknames.getText().toString().replaceAll("\\s","").equals(""))
             {
                 click_count--;
+                //Here it means that we are at the screen that mother adds 2 more nicknames
                 if(click_count>=number_of_players){
-                    Toast.makeText(EnterNamesOfPlayers.this, "Please insert a nickname", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(contextView, "Please insert a nickname", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                            .getColor(R.color.colorAccent)).show();
                 }
                 else {
-                    Toast.makeText(EnterNamesOfPlayers.this, "Please insert both a name and a nickname", Toast.LENGTH_SHORT).show();
+                    Snackbar.make(contextView,"Please insert both a name and a nickname", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                            .getColor(R.color.colorAccent)).show();
                 }
             }
             else if (names_nicknames.containsKey(names.getText().toString().replaceAll("\\s","")))
             {
                 click_count--;
-                Toast.makeText(EnterNamesOfPlayers.this, "The name : " + names.getText().toString() + " already exists, real names must be unique.", Toast.LENGTH_SHORT).show();
+                Snackbar.make(contextView,"The name : " + names.getText().toString() + " already exists, username must be unique.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
                 names.setText("");
             }
             else if (names_nicknames.containsValue(nicknames.getText().toString().replaceAll("\\s","")))
             {
                 click_count--;
-                Toast.makeText(EnterNamesOfPlayers.this, "Wow duplicate nickname that's rare! Put another nickname for the game to progress", Toast.LENGTH_SHORT).show();
+                Snackbar.make(contextView,"Wow duplicate nickname that's rare! Put another nickname for the game to progress", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
                 nicknames.setText("");
 
             }
@@ -258,7 +268,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 Random random = new Random();
                 List<String> keys = new ArrayList<>(names_nicknames.keySet());
                 motherName[0] = keys.get(random.nextInt(keys.size()));
-                Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to " + motherName[0] + ".", Toast.LENGTH_SHORT).show();
+                Snackbar.make(contextView,names.getText().toString() +" submitted his nickname, pass the phone to " + motherName[0] + ".", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
 
                 names.setText("The mother is :");
                 nicknames.setText(motherName[0]+" !");
@@ -288,12 +299,15 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                     if (names_nicknames.containsValue(nicknames.getText().toString().replaceAll("\\s", ""))) {
                         click_count--;
                         mother_add_count--;
-                        Toast.makeText(EnterNamesOfPlayers.this, "Wow duplicate nickname that's rare! Put another nickname for the game to progress", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(contextView,"Wow duplicate nickname that's rare! Put another nickname for the game to progress", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                                .getColor(R.color.colorAccent)).show();
+
                     }
                     else {
 
                         mother_nicknames.add(nicknames.getText().toString());
-                        Toast.makeText(EnterNamesOfPlayers.this, "Nickname : " + nicknames.getText().toString() + " added successfully.", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(contextView,"Nickname : " + nicknames.getText().toString() + " added successfully.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                                .getColor(R.color.colorAccent)).show();
 
                     }
                     if (mother_add_count == 2)
@@ -330,7 +344,10 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             }
             else {
                 names_nicknames.put(names.getText().toString().replaceAll("\\s",""),nicknames.getText().toString().replaceAll("\\s",""));
-                Toast.makeText(EnterNamesOfPlayers.this, names.getText().toString() +" submitted his nickname, pass the phone to the next player.", Toast.LENGTH_SHORT).show();
+
+                Snackbar.make(contextView,names.getText().toString() +" submitted his nickname, pass the phone to the next player.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
+
                 names.setText("");
                 nicknames.setText("");
             }
@@ -341,9 +358,6 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     /**
      * The code below is about the MediaPlayer playing on background
      */
-
-    private boolean mIsBound = false;
-    private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder

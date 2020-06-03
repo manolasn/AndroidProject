@@ -7,7 +7,6 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -17,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.HashMap;
+import com.google.android.material.snackbar.Snackbar;
 
 
 /**
@@ -29,6 +28,9 @@ public class StartGame extends AppCompatActivity {
     private Button submit;
     private EditText activity_title;
     private HomeWatcher mHomeWatcher;
+    private View contextView ;
+    private boolean mIsBound = false;
+    private MusicService mServ;
 
 
     @Override
@@ -37,6 +39,7 @@ public class StartGame extends AppCompatActivity {
         setContentView(R.layout.activity_start_game);
         activity_title =  findViewById(R.id.editText);
         submit = findViewById(R.id.button4);
+        contextView = findViewById(R.id.start_game_act);
 
 
         if(!Assisting_Class.getMute()) {
@@ -70,19 +73,21 @@ public class StartGame extends AppCompatActivity {
         //Submit button listener with value checking
         submit.setOnClickListener(v -> {
             if(activity_title.getText().toString().replaceAll("\\s","").equals("")) {
-                Toast.makeText(StartGame.this, "Please insert number before submitting", Toast.LENGTH_SHORT).show();
+                Snackbar.make(contextView, "Please insert number before submitting", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
             }
             else {
 
                 number_of_players = Integer.parseInt(activity_title.getText().toString());
                 if(number_of_players >2&& number_of_players <11) {
-                    Toast.makeText(StartGame.this, "Players submitted : " + number_of_players, Toast.LENGTH_SHORT).show();
                     Intent i = new Intent(this,EnterNamesOfPlayers.class);
                     i.putExtra("NUM_PLAYERS", number_of_players);
                     this.startActivity(i);
                 }
                 else{
-                    Toast.makeText(StartGame.this, "The game is played with 3 to 10 people", Toast.LENGTH_SHORT).show();
+
+                    Snackbar.make(contextView, "The game is played with 3 to 10 people", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                            .getColor(R.color.colorAccent)).show();
                     activity_title.setText("");
                 }
 
@@ -96,8 +101,6 @@ public class StartGame extends AppCompatActivity {
     /**
      * The code below is about the MediaPlayer playing on background
      */
-    private boolean mIsBound = false;
-    private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder

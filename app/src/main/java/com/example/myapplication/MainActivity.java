@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
     private ImageButton muted;
     private ImageButton playing;
     private HomeWatcher mHomeWatcher;
+    private boolean mIsBound = false;
+    private MusicService mServ;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -39,10 +41,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button leaderboard = findViewById(R.id.button_leaderboard);
+        Button button2 =  findViewById(R.id.button2);
+        Button buttonStart = findViewById(R.id.button1);
+
 
         doBindService();
         Intent music = new Intent();
         music.setClass(this, MusicService.class);
+
+
 
         if(!Assisting_Class.getMute()) {
             startService(music);
@@ -67,15 +75,12 @@ public class MainActivity extends AppCompatActivity {
         mHomeWatcher.startWatch();
 
 
-        Button leaderboard = findViewById(R.id.button_leaderboard);
-
-        Button button2 =  findViewById(R.id.button2);
         button2.setOnClickListener(v -> openHelpnew());
 
         playing=findViewById(R.id.button_play);
+
         muted=findViewById(R.id.button_mute);
 
-        Button buttonStart = findViewById(R.id.button1);
 
         //Start button listener
         buttonStart.setOnClickListener(v -> startGame());
@@ -153,8 +158,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * The code below is about the MediaPlayer playing on background
      */
-    private boolean mIsBound = false;
-    private MusicService mServ;
+
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder

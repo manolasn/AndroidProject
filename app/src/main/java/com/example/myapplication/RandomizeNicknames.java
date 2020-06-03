@@ -32,6 +32,8 @@ public class RandomizeNicknames extends AppCompatActivity {
     private TextView activity_title;
     private boolean flag=true;
     private HomeWatcher mHomeWatcher;
+    private boolean mIsBound = false;
+    private MusicService mServ;
 
 
 
@@ -156,9 +158,6 @@ public class RandomizeNicknames extends AppCompatActivity {
     /**
      * The code below is about the MediaPlayer playing on background
      */
-
-    private boolean mIsBound = false;
-    private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder

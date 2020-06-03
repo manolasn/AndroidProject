@@ -6,18 +6,19 @@
     android:layout_height="match_parent"
     android:background="@color/ic_launcher_background"
     android:clickable="true"
+    android:focusable="true"
     android:isScrollContainer="true"
     android:onClick="hideKeyboard"
     android:scrollbars="vertical"
-    tools:context=".StartGame"
-    android:focusable="true">
+    tools:context=".StartGame">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/start_game_act"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clickable="true"
-        android:onClick="hideKeyboard"
-        android:focusable="true">
+        android:focusable="true"
+        android:onClick="hideKeyboard">
 
         <TextView
             android:id="@+id/textView3"

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 
@@ -52,7 +53,10 @@ public class DisplayEverything extends AppCompatActivity {
     private CountDownTimer count_down;
     private ImageView click_icon;
     private boolean countrunning;
+    private View contextView ;
     private LeaderboardDatabase db=new LeaderboardDatabase(this);
+    private boolean mIsBound = false;
+    private MusicService mServ;
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -71,6 +75,7 @@ public class DisplayEverything extends AppCompatActivity {
         endRound = findViewById(R.id.buttonendround);
         floatinghint4 = findViewById(R.id.floating_hint_4);
         click_icon = findViewById(R.id.imageView);
+        contextView = findViewById(R.id.disp_every_act);
 
 
         if(!Assisting_Class.getMute()) {
@@ -228,7 +233,8 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                Toast.makeText(DisplayEverything.this, "1 point was added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(contextView, "1 point was added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
 
                 player_that_gets_points.setText("");
 
@@ -239,7 +245,8 @@ public class DisplayEverything extends AppCompatActivity {
            {
 
                 player_that_gets_points.setText("");
-                Toast.makeText(DisplayEverything.this, "Please insert a valid name to add point to.", Toast.LENGTH_SHORT).show();
+                Snackbar.make(contextView, "Please insert a valid name to add point to." + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                       .getColor(R.color.colorAccent)).show();
 
            }
 
@@ -290,7 +297,8 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                Toast.makeText(DisplayEverything.this, "2 points were added to : " + player_that_gets_points.getText().toString(), Toast.LENGTH_SHORT).show();
+                Snackbar.make(contextView, "2 points were added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
 
                 player_that_gets_points.setText("");
 
@@ -300,8 +308,8 @@ public class DisplayEverything extends AppCompatActivity {
             {
 
                 player_that_gets_points.setText("");
-                Toast.makeText(DisplayEverything.this, "Please insert a valid name to add point to.", Toast.LENGTH_SHORT).show();
-
+                Snackbar.make(contextView, "Please insert a valid name to add point to." + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        .getColor(R.color.colorAccent)).show();
             }
 
 
@@ -617,8 +625,6 @@ public class DisplayEverything extends AppCompatActivity {
     /**
      * The code below is about the MediaPlayer playing on background
      */
-    private boolean mIsBound = false;
-    private MusicService mServ;
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder
