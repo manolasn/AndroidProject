@@ -320,8 +320,9 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                     if (mother_add_count == 2)
                     {
                         InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        assert inputManager != null;
-                        inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                        if(inputManager!=null) {
+                            inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                        }
                         mother_add_count++;
                         activity_title.setText("");
                         activity_title.setText("They game shall now start.");
