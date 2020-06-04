@@ -56,7 +56,7 @@ public class DisplayEverything extends AppCompatActivity {
     private LeaderboardDatabase db=new LeaderboardDatabase(this);
     private boolean mIsBound = false;
     private MusicService mServ;
-
+    //declaration
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
