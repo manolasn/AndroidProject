@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ψευδόνυμα</string>
+    <string name="action_settings">Ρυθμίσεις</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="back">Πίσω</string>
+    <string name="start">Αρχή</string>
+    <string name="nicknames_the_game">Το παιχνίδι των Ψευδονύμων</string>
+    <string name="how_to_play">Κανόνες του παιχνιδιού</string>
+    <string name="submit_how_many_players_are_going_to_join_the_game_below">Καταχωρήστε παρακάτω πόσοι παίκτες θα παίξουν :</string>
+    <string name="insert_number_here">Βάλε αριθμό</string>
+    <string name="submit">Καταχώρησε</string>
+    <string name="now_submit_your_real_name_and_the_nickname_you_want_to_play_with">Καταχώρησε το όναμα και το ψευδόνυμο με το οποίο θα παίξεις.</string>
+    <string name="button">Button</string>
+    <string name="insert_real_name_here">Καταχώρησε όνομα</string>
+    <string name="insert_nickname_here">Καταχώρησε ψευδόνυμο</string>
+    <string name="mothernicknames">Η "Μάνα" πρέπει να καταχωρήσει άλλα 2 ψευδόνυμα.</string>
+    <string name="the_game_has_started">Το παιχνίδι ξεκινά.</string>
+    <string name="randomize">Ανακάτεμα</string>
+    <string name="done">Έγινε</string>
+    <string name="player_nicknames">Οι παίκτες με τα ψευδόνυμά τους:</string>
+    <string name="leaderboard">Πίνακας βαθμολογιών</string>
+    <string name="scoreboard">Βαθμολογίες</string>
+    <string name="next_round">Επόμενος γύρος</string>
+    <string name="_2_point">Πρόσθεσε 2 βαθμούς</string>
+    <string name="_1_point">Πρόσθεσε 1 βαθμούς</string>
+    <string name="start_timer">Ξεκίνα την αντίστροφη μέτρηση</string>
+    <string name="todo">TODO</string>
+    <string name="game_score_board">Βαθμολογίες παιχνιδιού : </string>
+    <string name="play_again">Παίξε ξανά</string>
+    <string name="main_menu">Κυρίως μενού</string>
+    <string name="end_round">Τέλος γύρου</string>
+    <string name="textview">TextView</string>
+    <string name="title_activity_leader_board">Πίνακας βαθμολογιών</string>
+    <string name="hide_hint">Κρύψε βοήθεια</string>
+    <string name="show_hint">Δείξε βοήθεια</string>
+
+
+</resources>

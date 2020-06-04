@@ -298,7 +298,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
                 names.setVisibility(View.GONE);
 
-                submit_names.setText("SUBMIT");
+                submit_names.setText(getResources().getText(R.string.submit));
 
                 if(mother_add_count <2&& click_count > number_of_players +1) {
                     mother_add_count++;

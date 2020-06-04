@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.IBinder;
@@ -20,6 +23,7 @@ import android.widget.ImageButton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Locale;
 
 
 /**
@@ -40,10 +44,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadlocale();
 
         Button leaderboard = findViewById(R.id.button_leaderboard);
         Button button2 =  findViewById(R.id.button2);
         Button buttonStart = findViewById(R.id.button1);
+        Button changeLang = findViewById(R.id.changeLang);
+
+        changeLang.setOnClickListener(v -> {
+            //show alert dialog languages to select one
+            showChangeLanguageDialog();
+
+        });
 
 
         doBindService();
@@ -243,6 +255,52 @@ public class MainActivity extends AppCompatActivity {
            return Integer.compare(o2.getName().compareTo(o1.getName()), 0);
        }
     });
+
+    private void showChangeLanguageDialog() {
+        final String[] listitems={"Ελληνικά","English", "Français"};
+        AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
+        mBuilder.setTitle("choose language");
+        mBuilder.setSingleChoiceItems(listitems, -1, (dialog, which) -> {
+            if (which==0){
+                setLocale("el");
+                recreate();
+            }
+            if (which==1){
+                setLocale("en");
+                recreate();
+            }
+            if (which==2){
+                setLocale("fr");
+                recreate();
+            }
+            //dismiss alert dialog when you choose language
+            dialog.dismiss();
+
+        });
+
+        AlertDialog mDialog = mBuilder.create();
+        //show alert dialog
+        mDialog.show();
+    }
+
+
+    private void setLocale(String lang) {
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale=locale;
+        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
+        SharedPreferences.Editor editor= getSharedPreferences("settings", MODE_PRIVATE).edit();
+        editor.putString("my_lang",lang);
+        editor.apply();
+    }
+
+    //load  language saved in preferences
+    public void loadlocale(){
+        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
+        String language = prefs.getString("my_lang", "");
+        setLocale(language);
+    }
 
 
 
