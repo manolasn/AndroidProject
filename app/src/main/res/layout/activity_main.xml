@@ -10,7 +10,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
@@ -36,9 +36,10 @@
             android:id="@+id/changeLang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:fontFamily="casual"
-            android:text="Change language"
+            android:text="@string/change_language"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textColor="@color/design_default_color_on_secondary"
             android:textStyle="bold"
@@ -46,7 +47,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/button_leaderboard"
-            app:layout_constraintVertical_bias="0.171" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/button_leaderboard"
@@ -69,7 +70,7 @@
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="16dp"
             android:backgroundTint="@color/colorPrimary"
             android:fontFamily="casual"
             android:text="@string/how_to_play"
@@ -88,7 +89,7 @@
             android:layout_height="wrap_content"
             android:background="@color/colorPrimary"
             android:fontFamily="casual"
-            android:paddingBottom="10dp"
+            android:paddingBottom="40dp"
             android:text="@string/nicknames_the_game"
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Display3"

@@ -50,6 +50,7 @@ public class EndOfTheGame extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Assisting_Class.loadlocale(this);
         setContentView(R.layout.activity_end_of_the_game);
 
         playAgain = findViewById(R.id.buttonnewgame);
@@ -116,12 +117,12 @@ public class EndOfTheGame extends AppCompatActivity {
 
         assert winners != null;
         if(winners.size() == 1){
-            winner.append("The Winner is :\n"+winners.get(0));
+            winner.append(getResources().getString(R.string.winner_s_is_are)+"\n"+winners.get(0));
         }
         else if(winners.size()>1)
         {
 
-            winner.append("The Winners are :");
+            winner.append(getResources().getString(R.string.winner_s_is_are));
             for(int i=0;i<winners.size();i++)
             {
                 winner.append("\n"+winners.get(i));
@@ -131,7 +132,7 @@ public class EndOfTheGame extends AppCompatActivity {
         }
 
 
-        score.append("Game Score Board :");
+        score.append(getResources().getString(R.string.game_score_board));
 
 
 

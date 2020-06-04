@@ -148,7 +148,7 @@ public class DisplayEverything extends AppCompatActivity {
 
 
         //Here we display the mother nicknames
-        title_mother.append("Mother ("+mother+") Nicknames :");
+        title_mother.append(mother+getResources().getString(R.string.three_mothernicks));
         for (int i = 0; i< mother_nicknames.size(); i++)
         {
             title_mother.append( "\n" +  (i+1) + " : " + mother_nicknames.get(i));
@@ -235,7 +235,7 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                Snackbar.make(contextView, "1 point added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView, getResources().getString(R.string.point_added_to) + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
                 player_that_gets_points.setText("");
@@ -247,7 +247,7 @@ public class DisplayEverything extends AppCompatActivity {
            {
 
                 player_that_gets_points.setText("");
-                Snackbar.make(contextView, "Please insert a valid name to add point to." + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView, getResources().getString(R.string.name_to_add_points_to) + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                        .getColor(R.color.colorAccent)).show();
 
            }
@@ -299,7 +299,7 @@ public class DisplayEverything extends AppCompatActivity {
 
                 }
 
-                Snackbar.make(contextView, "2 points added to : " + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView, getResources().getString(R.string.point_added_to) + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
                 player_that_gets_points.setText("");
@@ -310,7 +310,7 @@ public class DisplayEverything extends AppCompatActivity {
             {
 
                 player_that_gets_points.setText("");
-                Snackbar.make(contextView, "Please insert a valid name to add point to." + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView, getResources().getString(R.string.name_to_add_points_to) + player_that_gets_points.getText().toString(), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
             }
 
@@ -446,7 +446,7 @@ public class DisplayEverything extends AppCompatActivity {
             }
 
             timesTimerPressed++;
-            timer_button.setText("START TIMER "+(timesTimerPressed+1));
+            timer_button.setText(getResources().getString(R.string.start_timer)+" "+(timesTimerPressed+1));
 
             startTimer();
 

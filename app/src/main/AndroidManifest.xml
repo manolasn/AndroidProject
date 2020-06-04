@@ -17,37 +17,38 @@
 
         <activity
             android:name=".LeaderBoard"
-            android:configChanges="orientation|screenSize|keyboardHidden"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:configChanges="locale|orientation|screenSize"
+            tools:ignore="LockedOrientationActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
         <activity
             android:name=".EndOfTheGame"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="locale|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DisplayEverything"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="locale|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RandomizeNicknames"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="locale|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EnterNamesOfPlayers"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="locale|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StartGame"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HowToPlay"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="locale|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:configChanges="locale|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

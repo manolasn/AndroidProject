@@ -28,6 +28,7 @@ public class LeaderBoard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Assisting_Class.loadlocale(this);
         setContentView(R.layout.activity_leader_board);
 
         TextView leaderboard = findViewById(R.id.textLeaderboard);
@@ -36,7 +37,7 @@ public class LeaderBoard extends AppCompatActivity {
 
         ArrayList<Player> arrayList = (ArrayList<Player>) getIntent().getSerializableExtra("LEADERBOARD");
 
-        leaderboard.append("( Name ----> Score )");
+        leaderboard.append(getResources().getString(R.string.name_arrow_score));
 
         for(int i=0;i<arrayList.size();i++)
         {

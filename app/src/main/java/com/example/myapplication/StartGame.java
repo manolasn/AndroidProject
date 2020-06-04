@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -7,6 +8,9 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -18,6 +22,11 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Locale;
+import java.util.Objects;
 
 
 /**
@@ -34,14 +43,25 @@ public class StartGame extends AppCompatActivity {
     private MusicService mServ;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Assisting_Class.loadlocale(this);
         setContentView(R.layout.activity_start_game);
+
         activity_title =  findViewById(R.id.editText);
         submit = findViewById(R.id.button4);
         contextView = findViewById(R.id.start_game_act);
         activity_title.setImeOptions(activity_title.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+
+
+
+
+
+
+
+
 
 
         if(!Assisting_Class.getMute()) {
@@ -179,5 +199,11 @@ public class StartGame extends AppCompatActivity {
         InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+
     }
+
+
+
+
+
 }

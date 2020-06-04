@@ -70,8 +70,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Assisting_Class.loadlocale(this);
         setContentView(R.layout.activity_enter_names_of_players);
-
         number_of_players = getIntent().getIntExtra("NUM_PLAYERS",0);
         activity_title = findViewById(R.id.textView4);
         names = findViewById(R.id.realname);
@@ -169,7 +169,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
                 if(hintnicknames.getVisibility() == View.INVISIBLE)
                 {
-                    hintnicknames.append("Some nicknames :");
+                    hintnicknames.append(getResources().getString(R.string.some_nicks));
                     for(int i=0; i<5&&i<hint_nicknames.size();i++)
                     {
 
@@ -228,25 +228,25 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 click_count--;
                 //Here it means that we are at the screen that mother adds 2 more nicknames
                 if(click_count>=number_of_players){
-                    Snackbar.make(contextView, "Please insert a nickname.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                    Snackbar.make(contextView, getResources().getString(R.string.plz_insert_nick), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                             .getColor(R.color.colorAccent)).show();
                 }
                 else {
-                    Snackbar.make(contextView,"Please insert both username and nickname.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                    Snackbar.make(contextView,getResources().getString(R.string.plz_inster_both), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                             .getColor(R.color.colorAccent)).show();
                 }
             }
             else if (names_nicknames.containsKey(names.getText().toString().replaceAll("\\s","")))
             {
                 click_count--;
-                Snackbar.make(contextView,"The name : " + names.getText().toString() + " already exists, username must be unique.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView,getResources().getString(R.string.the_name) + names.getText().toString() + getResources().getString(R.string.already_exists), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
                 names.setText("");
             }
             else if (names_nicknames.containsValue(nicknames.getText().toString().replaceAll("\\s","")))
             {
                 click_count--;
-                Snackbar.make(contextView,"Wow duplicate nickname that's rare! Put another nickname for the game to progress", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView,getResources().getString(R.string.wow_dup_nick), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
                 nicknames.setText("");
 
@@ -259,7 +259,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 inputManager.hideSoftInputFromWindow(Objects.requireNonNull(getCurrentFocus()).getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 floatinghint1.setHint("");
                 floatinghint2.setHint("");
-                activity_title.setText("Now give the device to the \"mother\" and the game begins, have fun .");
+                activity_title.setText(getResources().getString(R.string.give_phon_mother));
                 if(hintnicknames.getVisibility() == View.VISIBLE)
                 {
                     hintnicknames.setVisibility(View.INVISIBLE);
@@ -274,10 +274,10 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 Random random = new Random();
                 List<String> keys = new ArrayList<>(names_nicknames.keySet());
                 motherName[0] = keys.get(random.nextInt(keys.size()));
-                Snackbar.make(contextView,names.getText().toString() +" submitted his nickname, pass the phone to " + motherName[0] + ".", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView,names.getText().toString() +getResources().getString(R.string.submited_pass_phon) + motherName[0], Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
-                names.setText("The mother is :");
+                names.setText(getResources().getString(R.string.mother_is));
                 nicknames.setText(motherName[0]+" !");
 
 
@@ -289,8 +289,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             else if(click_count > number_of_players){
                 //Open new activity with known orginizer and all nicknames and names in hashmap
                 nicknames.setFocusableInTouchMode(true);
-                activity_title.setText("Mother has to submit 2 more nicknames.");
-                floatinghint2.setHint("Insert nickname");
+                activity_title.setText(getResources().getString(R.string.mother_has_2_more));
+                floatinghint2.setHint(getResources().getString(R.string.insert_nickname_here));
                 if(hint.getVisibility() == View.INVISIBLE)
                 {
                     hint.setVisibility(View.VISIBLE);
@@ -306,14 +306,14 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                     if (names_nicknames.containsValue(nicknames.getText().toString().replaceAll("\\s", ""))) {
                         click_count--;
                         mother_add_count--;
-                        Snackbar.make(contextView,"Wow duplicate nickname that's rare! Put another nickname for the game to progress", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        Snackbar.make(contextView,getResources().getString(R.string.wow_dup_nick), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                                 .getColor(R.color.colorAccent)).show();
 
                     }
                     else {
 
                         mother_nicknames.add(nicknames.getText().toString());
-                        Snackbar.make(contextView,"Nickname : " + nicknames.getText().toString() + " added successfully.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                        Snackbar.make(contextView,getResources().getString(R.string.the_nickname) + nicknames.getText().toString() + getResources().getString(R.string.added_success), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                                 .getColor(R.color.colorAccent)).show();
 
                     }
@@ -325,7 +325,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                         }
                         mother_add_count++;
                         activity_title.setText("");
-                        activity_title.setText("They game shall now start.");
+                        activity_title.setText(getResources().getString(R.string.the_game_starts));
                         nicknames.setVisibility(View.GONE);
                         submit_names.setText("OK !");
                         //We use this external library : pl.droidsonroids.gif:android-gif-drawable:1.2.20 to use a GifView
@@ -354,7 +354,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             else {
                 names_nicknames.put(names.getText().toString().replaceAll("\\s",""),nicknames.getText().toString().replaceAll("\\s",""));
 
-                Snackbar.make(contextView,names.getText().toString() +" submitted his nickname successfully, pass the phone to the next player.", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView,names.getText().toString() +getResources().getString(R.string.pass_to_next_player), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
                 names.setText("");
@@ -403,7 +403,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             mServ.resumeMusic();
         }
     }
-//TODO WHEN GOING FROM PORTRAIT TO LANDSCAPE COUNTER REFRESHES AND ASK FOR THE WHOLE NUMBER OF PLAYERS
+
     @Override
     protected void onPause() {
         super.onPause();

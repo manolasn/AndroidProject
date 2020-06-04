@@ -1,5 +1,10 @@
 package com.example.myapplication;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * This is a simple class just to have access globally to some methods and variables
@@ -7,23 +12,7 @@ import java.util.HashMap;
 class Assisting_Class {
 
         private static HashMap<String,Integer> scoreboard=new HashMap<>();
-
-        private static int player_count;
-
-        public static int getPlayer_count() {
-                 return player_count;
-        }
-
-        public static void setPlayer_count(int player_count)
-        {
-
-           Assisting_Class.player_count = player_count;
-
-        }
-
-
         private static boolean mute=false;
-
 
         static void setMute(boolean a){
             mute=a;
@@ -43,6 +32,29 @@ class Assisting_Class {
         }
 
         static void clearScoreboard(){scoreboard.clear();}
+
+         static void setLocale(String lang, Context context) {
+            Locale locale = new Locale(lang);
+            Locale.setDefault(locale);
+            Configuration config = new Configuration();
+            config.locale=locale;
+            context.getResources().updateConfiguration(config,context.getResources().getDisplayMetrics());
+            SharedPreferences.Editor editor= context.getSharedPreferences("settings", Context.MODE_PRIVATE).edit();
+            editor.putString("my_lang",lang);
+            System.out.println(editor.commit());
+
+        }
+
+        //load  language saved in preferences
+        static void loadlocale(Context context){
+            SharedPreferences prefs = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
+            String language = prefs.getString("my_lang", "");
+            System.out.println(prefs.getString("my_lang", ""));
+            setLocale(language,context);
+
+        }
+
+
 
 
 }

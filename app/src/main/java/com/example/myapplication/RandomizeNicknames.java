@@ -40,6 +40,7 @@ public class RandomizeNicknames extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Assisting_Class.loadlocale(this);
         setContentView(R.layout.activity_randomize_nicknames);
 
         Button randomize = findViewById(R.id.button3);
@@ -92,7 +93,7 @@ public class RandomizeNicknames extends AppCompatActivity {
 
 
 
-        activity_title.append("Read the nicknames aloud 3 times :");
+        activity_title.append(getResources().getString(R.string.read_aloud_3_times));
         for (int i = 0; i< all_nicknames.size(); i++)
         {
             activity_title.append( "\n" +  (i+1) + " : " + all_nicknames.get(i));
@@ -115,7 +116,7 @@ public class RandomizeNicknames extends AppCompatActivity {
 
             activity_title.setText("");
 
-            activity_title.append("Read the nicknames aloud 3 times :");
+            activity_title.append(getResources().getString(R.string.read_aloud_3_times));
 
             while (!all_nicknames.isEmpty())
             {

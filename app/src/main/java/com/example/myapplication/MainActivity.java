@@ -37,19 +37,20 @@ public class MainActivity extends AppCompatActivity {
     private HomeWatcher mHomeWatcher;
     private boolean mIsBound = false;
     private MusicService mServ;
-
+    private Button leaderboard, how_to_play_buttton,buttonStart,changeLang;
+    private Locale locale;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Assisting_Class.loadlocale(this);
         setContentView(R.layout.activity_main);
-        loadlocale();
 
-        Button leaderboard = findViewById(R.id.button_leaderboard);
-        Button button2 =  findViewById(R.id.button2);
-        Button buttonStart = findViewById(R.id.button1);
-        Button changeLang = findViewById(R.id.changeLang);
+        leaderboard = findViewById(R.id.button_leaderboard);
+        how_to_play_buttton =  findViewById(R.id.button2);
+        buttonStart = findViewById(R.id.button1);
+        changeLang = findViewById(R.id.changeLang);
 
         changeLang.setOnClickListener(v -> {
             //show alert dialog languages to select one
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         doBindService();
         Intent music = new Intent();
         music.setClass(this, MusicService.class);
-
 
 
         if(!Assisting_Class.getMute()) {
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         mHomeWatcher.startWatch();
 
 
-        button2.setOnClickListener(v -> openHelpnew());
+        how_to_play_buttton.setOnClickListener(v -> openHelpnew());
 
         playing=findViewById(R.id.button_play);
 
@@ -247,30 +247,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     public Comparator<Player> xCompareBel = ((o1, o2) -> {
-       if(o1.getScore()!=o2.getScore())
-       {
-           return o2.getScore()-o1.getScore();
-       } else
-       {
-           return Integer.compare(o2.getName().compareTo(o1.getName()), 0);
-       }
+        if(o1.getScore()!=o2.getScore())
+        {
+            return o2.getScore()-o1.getScore();
+        } else
+        {
+            return Integer.compare(o2.getName().compareTo(o1.getName()), 0);
+        }
     });
 
     private void showChangeLanguageDialog() {
         final String[] listitems={"Ελληνικά","English", "Français"};
         AlertDialog.Builder mBuilder = new AlertDialog.Builder(MainActivity.this);
-        mBuilder.setTitle("choose language");
+        mBuilder.setTitle(getResources().getString(R.string.choose_lang));
         mBuilder.setSingleChoiceItems(listitems, -1, (dialog, which) -> {
             if (which==0){
-                setLocale("el");
+                Assisting_Class.setLocale("el",this);
                 recreate();
             }
             if (which==1){
-                setLocale("en");
+                Assisting_Class.setLocale("en",this);
                 recreate();
             }
             if (which==2){
-                setLocale("fr");
+                Assisting_Class.setLocale("fr",this);
                 recreate();
             }
             //dismiss alert dialog when you choose language
@@ -282,26 +282,6 @@ public class MainActivity extends AppCompatActivity {
         //show alert dialog
         mDialog.show();
     }
-
-
-    private void setLocale(String lang) {
-        Locale locale = new Locale(lang);
-        Locale.setDefault(locale);
-        Configuration config = new Configuration();
-        config.locale=locale;
-        getBaseContext().getResources().updateConfiguration(config,getBaseContext().getResources().getDisplayMetrics());
-        SharedPreferences.Editor editor= getSharedPreferences("settings", MODE_PRIVATE).edit();
-        editor.putString("my_lang",lang);
-        editor.apply();
-    }
-
-    //load  language saved in preferences
-    public void loadlocale(){
-        SharedPreferences prefs = getSharedPreferences("settings", MODE_PRIVATE);
-        String language = prefs.getString("my_lang", "");
-        setLocale(language);
-    }
-
 
 
 
