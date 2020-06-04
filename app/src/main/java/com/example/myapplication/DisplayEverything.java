@@ -16,6 +16,7 @@ import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -74,6 +75,7 @@ public class DisplayEverything extends AppCompatActivity {
         floatinghint4 = findViewById(R.id.floating_hint_4);
         click_icon = findViewById(R.id.imageView);
         contextView = findViewById(R.id.disp_every_act);
+        player_that_gets_points.setImeOptions(player_that_gets_points.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
 
 
         if(!Assisting_Class.getMute()) {

@@ -19,6 +19,7 @@ import android.os.PowerManager;
 
 import android.view.View;
 
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -83,6 +84,8 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         contextView = findViewById(R.id.enter_names_act);
         ToggleButton hint = findViewById(R.id.hint_button);
 
+        names.setImeOptions(names.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
+        nicknames.setImeOptions(nicknames.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
 
         if(gifanimation.getVisibility() == View.VISIBLE)
         {

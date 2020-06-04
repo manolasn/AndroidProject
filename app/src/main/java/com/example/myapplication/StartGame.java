@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,6 +41,7 @@ public class StartGame extends AppCompatActivity {
         activity_title =  findViewById(R.id.editText);
         submit = findViewById(R.id.button4);
         contextView = findViewById(R.id.start_game_act);
+        activity_title.setImeOptions(activity_title.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
 
 
         if(!Assisting_Class.getMute()) {
