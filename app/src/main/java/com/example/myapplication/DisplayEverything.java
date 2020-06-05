@@ -60,7 +60,6 @@ public class DisplayEverything extends AppCompatActivity {
     private LeaderboardDatabase db=new LeaderboardDatabase(this);
     private boolean mIsBound = false;
     private MusicService mServ;
-    //declaration
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -128,7 +127,7 @@ public class DisplayEverything extends AppCompatActivity {
 
         });
 
-
+        //here is the autofill function for the players and are involved in this round
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,R.layout.custon_layout_hint, temp1);
         player_that_gets_points.setThreshold(1);
         player_that_gets_points.setAdapter(adapter);
@@ -193,7 +192,7 @@ public class DisplayEverything extends AppCompatActivity {
 
 
 
-        //Buttons that add 1 point and 2 points are implemented here
+        //Buttons that add 1 point and 2 points are implemented here with some validation tests
         add_1_point.setOnClickListener(v -> {
 
             if (names_nicknames.containsKey(player_that_gets_points.getText().toString())||player_that_gets_points.getText().toString().equals(mother))
@@ -376,7 +375,7 @@ public class DisplayEverything extends AppCompatActivity {
         });
 
 
-
+        //Timer text is clickable and resets every time some1 clicks on it if the time that remains in not needed if its the 6th timer the layout changes likewise end round button
         timer_text.setOnClickListener(v -> {
 
 
@@ -572,7 +571,7 @@ public class DisplayEverything extends AppCompatActivity {
                     timer_text.setVisibility(View.INVISIBLE);
                     click_icon.setVisibility(View.INVISIBLE);
                 }
-//TODO:531c4854a33de2fa crash report number
+
                 if(timer_sound!=null) {
                     if (timer_sound.isPlaying()) {
                         timer_sound.release();
@@ -604,6 +603,13 @@ public class DisplayEverything extends AppCompatActivity {
         timeLeftText+=":";
 
 
+        if(minutes>0&&seconds<10)
+        {
+            timeLeftText+="0";
+        }
+
+
+
         if(seconds<10&&minutes==0) {
             timeLeftText+="0";
             timer_text.setTextColor(Color.RED);
@@ -630,7 +636,7 @@ public class DisplayEverything extends AppCompatActivity {
 
     /**
      * The code below is about the MediaPlayer playing on background
-     */
+     * */
     private ServiceConnection Scon =new ServiceConnection(){
 
         public void onServiceConnected(ComponentName name, IBinder

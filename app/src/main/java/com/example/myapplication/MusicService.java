@@ -81,26 +81,6 @@ public class MusicService extends Service implements MediaPlayer.OnErrorListener
         }
     }
 
-    public void startMusic() {
-        mPlayer = MediaPlayer.create(this, R.raw.mainsound);
-        mPlayer.setOnErrorListener(this);
-
-        if (mPlayer != null) {
-            mPlayer.setLooping(true);
-            mPlayer.setVolume(50, 50);
-            mPlayer.start();
-        }
-
-    }
-
-    public void stopMusic() {
-        if (mPlayer != null) {
-            mPlayer.stop();
-            mPlayer.release();
-            mPlayer = null;
-        }
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();

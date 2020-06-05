@@ -98,7 +98,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         }
 
 
-        //From line 93 to 106 is auto fill name function
+        //From line 93 to 106 is auto fill name function that are on the leaderboard
         LeaderboardDatabase db=new LeaderboardDatabase(this);
 
         ArrayList<Player> aHash=db.getAll();
@@ -150,11 +150,11 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             hintnicknames.setVisibility(View.INVISIBLE);
         }
 
-        //Some hints
+        //Some hints for the players when they insert nicknames
         List<String> newList= Arrays.asList("Σκύλος", "Κομπολόι","source", "tooth", "κλειδί", "merit", "Νώε" ,"kettle", "play" ,"πρόβατο","precision", "Super Mario", "Αρχηγός" ,"equation" ,
                 "χάμστερ", "transform" ,"Μήτσος", "trail", "reach", "αλεπουδάκι" ,"delicate", "τουτούκος" ,"recovery", "απολυμένος", "empire", "βλέμα", "post", "band", "υποβρύχιο" ,"πάντα",
                 "delivery", "climate", "άγγελος", "number", "flourish", "increase", "καραγκιόζης", "φασολάδα","convince","bounce" ,"connection", "κοιμάμαι", "record", "hook","cross", "παριζάκι",
-                "trade" ,"hostage", "java","menu", "οδηγός", "delete", "offspring" ,"examination" , "μαύρο", "πατέρας", "rob" ,"cherry" ,"hostile","αρχαίος",  "fit", "myth", "quote", "evaluate",
+                "trade" ,"hostage","molex","duplex","shalala", "java","menu", "οδηγός", "delete", "offspring" ,"examination" , "μαύρο", "πατέρας", "rob" ,"cherry" ,"hostile","αρχαίος",  "fit", "myth", "quote", "evaluate",
                 "exposure","βράδυ", "warn", "consultation", "designer", "cooperate" ,"invite", "πυροσβεστήρας", "shape", "canvas" ,"chimpanzee" ,"ride","παπαπαπ", "πηγή", "δόντι", "αξία", "winner","βραστήρας",
                 "παιχνίδι", "ακρίβεια", "εξίσωση","hide and seek", "μεταμόρφωση", "ίχνος", "hippo", "προσέγγιση", "παπαρούνα", "Kappa", "αυτοκρατορία "," ανάρτηση "," μπάντα "," παράδοση "," κλίμα "," αριθμός ",
                 " περικαμψύλιο ", "game", " αύξηση "," ανοχή "," αναπήδηση ", "pacman", "σύνδεση", " ηχογράφηση ","firefly", " γάντζος ","game boy", "κορνίζα", "εμπόριο", "όμηρος", "rca", "διαγραφή", "απόγονος",
@@ -363,16 +363,11 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
 
                 }
                 nicknames.setText("");
-
-                //we print the hashmap to see if evrything is ok !
-//                names_nicknames.entrySet().forEach(stringStringEntry -> {
-//                    System.out.println(stringStringEntry.getKey()+" "+ stringStringEntry.getValue());
-//                });
             }
             else {
                 names_nicknames.put(names.getText().toString().replaceAll("\\s",""),nicknames.getText().toString().replaceAll("\\s",""));
 
-                Snackbar.make(contextView,names.getText().toString() +getResources().getString(R.string.pass_to_next_player), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView,names.getText().toString()+getResources().getString(R.string.pass_to_next_player), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
 
                 names.setText("");

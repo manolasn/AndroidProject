@@ -8,12 +8,16 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -142,20 +146,6 @@ public class RandomizeNicknames extends AppCompatActivity {
 
 
 
-
-//        This part was used for debugging
-//
-//        System.out.print("\n");
-//        if(names_nicknames!=null) {
-//            names_nicknames.entrySet().forEach(stringStringEntry -> System.out.println(stringStringEntry.getKey() + " " + stringStringEntry.getValue()));
-//        }
-//        System.out.print("\n");
-//        mother_nicknames.forEach(s -> System.out.println("mother nickname : " + s));
-
-
-
-
-
     }
 
 
@@ -231,6 +221,28 @@ public class RandomizeNicknames extends AppCompatActivity {
         Intent music = new Intent();
         music.setClass(this,MusicService.class);
         stopService(music);
+
+    }
+
+
+
+    /**
+     * this method is called when the configuration changes and we need to keep the locale of the current configuration to the next one
+     * @param newConfig landscape or portrait
+     */
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        //int orientation = this.getResources().getConfiguration().orientation;
+
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            Assisting_Class.loadlocale(RandomizeNicknames.this);
+            Log.e("On Config Change","LANDSCAPE");
+        }else{
+            Assisting_Class.loadlocale(RandomizeNicknames.this);
+            Log.e("On Config Change","PORTRAIT");
+        }
 
     }
 

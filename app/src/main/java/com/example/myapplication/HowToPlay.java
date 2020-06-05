@@ -10,7 +10,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.text.method.ScrollingMovementMethod;
 
 import android.widget.Button;
 import android.widget.TextView;

@@ -2,6 +2,9 @@ package com.example.myapplication;
 
 import java.io.Serializable;
 
+/**
+ * This class is used as a struct for a player that has a name and a score
+ */
 public class Player implements Serializable {
     private String name;
     private int score;

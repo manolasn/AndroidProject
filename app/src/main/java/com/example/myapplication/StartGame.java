@@ -50,14 +50,6 @@ public class StartGame extends AppCompatActivity {
         activity_title.setImeOptions(activity_title.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
 
 
-
-
-
-
-
-
-
-
         if(!Assisting_Class.getMute()) {
             doBindService();
             Intent music = new Intent();
