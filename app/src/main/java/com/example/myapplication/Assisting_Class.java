@@ -13,10 +13,19 @@ class Assisting_Class {
 
         private static HashMap<String,Integer> scoreboard=new HashMap<>();
         private static boolean mute=false;
+        private static boolean throwKonfetti=true;
+
+        public static boolean ThrowKonfetti() {
+            return throwKonfetti;
+        }
+
+        public static void setThrowKonfetti(boolean throwKonfetti) {
+            Assisting_Class.throwKonfetti = throwKonfetti;
+        }
 
         static void setMute(boolean a){
-            mute=a;
-        }
+                mute=a;
+            }
 
         static boolean getMute(){
             return mute;

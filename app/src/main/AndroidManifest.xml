@@ -23,11 +23,10 @@
 
         <activity
             android:name=".EndOfTheGame"
-            android:configChanges="locale|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DisplayEverything"
-            android:configChanges="locale|orientation|screenSize"
+            android:configChanges="locale|orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".RandomizeNicknames"
@@ -35,11 +34,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EnterNamesOfPlayers"
-            android:configChanges="locale|orientation|screenSize"
+            android:configChanges="orientation|screenSize|keyboardHidden"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".StartGame"
-
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HowToPlay"
@@ -48,7 +46,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:configChanges="locale|orientation|screenSize"
+            android:configChanges="orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

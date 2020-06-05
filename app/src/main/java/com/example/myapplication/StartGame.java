@@ -1,6 +1,5 @@
 package com.example.myapplication;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -8,25 +7,20 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.SharedPreferences;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Locale;
-import java.util.Objects;
 
 
 /**
@@ -95,7 +89,7 @@ public class StartGame extends AppCompatActivity {
         //Submit button listener with value checking
         submit.setOnClickListener(v -> {
             if(activity_title.getText().toString().replaceAll("\\s","").equals("")) {
-                Snackbar.make(contextView, "Please insert number before submitting", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                Snackbar.make(contextView, getResources().getString(R.string.insert_number_before_submitting), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                         .getColor(R.color.colorAccent)).show();
             }
             else {
@@ -108,7 +102,7 @@ public class StartGame extends AppCompatActivity {
                 }
                 else{
 
-                    Snackbar.make(contextView, "The game is played with 3 to 10 people", Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
+                    Snackbar.make(contextView, getResources().getString(R.string.three_to_ten_ppl), Snackbar.LENGTH_SHORT).setTextColor(getResources().getColor(R.color.colorPrimaryDark)).setBackgroundTint(getResources()
                             .getColor(R.color.colorAccent)).show();
                     activity_title.setText("");
                 }
@@ -153,6 +147,8 @@ public class StartGame extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+
 
         mHomeWatcher.startWatch();
 
@@ -201,9 +197,6 @@ public class StartGame extends AppCompatActivity {
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
 
     }
-
-
-
 
 
 }

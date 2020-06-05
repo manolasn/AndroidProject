@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.PowerManager;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -27,6 +29,8 @@ import android.widget.TextView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -148,7 +152,7 @@ public class DisplayEverything extends AppCompatActivity {
 
 
         //Here we display the mother nicknames
-        title_mother.append(mother+getResources().getString(R.string.three_mothernicks));
+        title_mother.append(mother+" "+getResources().getString(R.string.three_mothernicks));
         for (int i = 0; i< mother_nicknames.size(); i++)
         {
             title_mother.append( "\n" +  (i+1) + " : " + mother_nicknames.get(i));
@@ -704,6 +708,27 @@ public class DisplayEverything extends AppCompatActivity {
         InputMethodManager inputMethodManager=(InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
+    }
+
+
+    /**
+     * this method is called when the configuration changes and we need to keep the locale of the current configuration to the next one
+     * @param newConfig landscape or portrait
+     */
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        //int orientation = this.getResources().getConfiguration().orientation;
+
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            Assisting_Class.loadlocale(DisplayEverything.this);
+            Log.e("On Config Change","LANDSCAPE");
+        }else{
+            Assisting_Class.loadlocale(DisplayEverything.this);
+            Log.e("On Config Change","PORTRAIT");
+        }
+
     }
 
 

@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -16,9 +17,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,35 +64,40 @@ public class EndOfTheGame extends AppCompatActivity {
         winners =(ArrayList<String>) getIntent().getSerializableExtra("WINNER");
 
         score.setMovementMethod(new ScrollingMovementMethod());
+        winner.setMovementMethod(new ScrollingMovementMethod());
 
 
         //Here we are using the n1.dionsegijn:konfetti external library to make some animations when winner is found.
-        final KonfettiView konfettiView = findViewById(R.id.viewKonfetti);
-        konfettiView.build()
-                .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
-                .setDirection(-20.0 ,200.0)
-                .setSpeed(5f, 15f)
-                .setFadeOutEnabled(true)
-                .setTimeToLive(2000L)
-                .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
-                .addSizes(new Size(12, 5f))
-                .setPosition(500f, 500f, -50f, -50f)
-                .streamFor(1000, 1500L);
+       if(Assisting_Class.ThrowKonfetti()) {
+           Assisting_Class.setThrowKonfetti(false);
+           final KonfettiView konfettiView = findViewById(R.id.viewKonfetti);
+           konfettiView.build()
+                   .addColors(Color.YELLOW, Color.GREEN, Color.MAGENTA)
+                   .setDirection(-20.0, 200.0)
+                   .setSpeed(5f, 15f)
+                   .setFadeOutEnabled(true)
+                   .setTimeToLive(2000L)
+                   .addShapes(Shape.Square.INSTANCE, Shape.Circle.INSTANCE)
+                   .addSizes(new Size(12, 5f))
+                   .setPosition(500f, 500f, -50f, -50f)
+                   .streamFor(1000, 1500L);
 
-        //Winning sound
-        player = MediaPlayer.create(this,R.raw.win_sound);
-        player.start();
+           //Winning sound
+           player = MediaPlayer.create(this, R.raw.win_sound);
+           player.start();
+           if(!player.isPlaying()){
+               player.release();
+           }
+       }
 
         names_nicknames = (HashMap<String, String>) getIntent().getSerializableExtra("PLAYERS");
         mother = getIntent().getStringExtra("MOTHER");
 
 
 
-        if(!player.isPlaying()){
-            player.release();
-        }
 
 
+        //we check if get mute is false , if it is we don't start the service of music
         if(!Assisting_Class.getMute()) {
             doBindService();
             Intent music = new Intent();
@@ -122,10 +131,17 @@ public class EndOfTheGame extends AppCompatActivity {
         else if(winners.size()>1)
         {
 
-            winner.append(getResources().getString(R.string.winner_s_is_are));
+            winner.append(getResources().getString(R.string.winner_s_is_are)+"\n");
+            boolean flag=true;
             for(int i=0;i<winners.size();i++)
             {
-                winner.append("\n"+winners.get(i));
+                if(flag){
+                    flag=false;
+                    winner.append(winners.get(i));
+                } else{
+                    winner.append(" , "+winners.get(i));
+                }
+
             }
 
 
@@ -164,12 +180,14 @@ public class EndOfTheGame extends AppCompatActivity {
         playAgain.setOnClickListener(v -> {
             Intent i=new Intent(this,StartGame.class);
             Assisting_Class.clearScoreboard();
+            Assisting_Class.setThrowKonfetti(true);
             startActivity(i);
 
         });
         //Menu button listener
         menu.setOnClickListener(v -> {
             Intent i=new Intent(this,MainActivity.class);
+            Assisting_Class.setThrowKonfetti(true);
             Assisting_Class.clearScoreboard();
             startActivity(i);
 
@@ -256,7 +274,25 @@ public class EndOfTheGame extends AppCompatActivity {
     }
 
 
+    /**
+     * this method is called when the configuration changes and we need to keep the locale of the current configuration to the next one
+     * @param newConfig landscape or portrait
+     */
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
 
+        //int orientation = this.getResources().getConfiguration().orientation;
+
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            Assisting_Class.loadlocale(EndOfTheGame.this);
+            Log.e("On Config Change","LANDSCAPE");
+        }else{
+            Assisting_Class.loadlocale(EndOfTheGame.this);
+            Log.e("On Config Change","PORTRAIT");
+        }
+
+    }
 
 
 

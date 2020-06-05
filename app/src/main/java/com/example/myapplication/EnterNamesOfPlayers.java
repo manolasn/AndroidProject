@@ -11,12 +11,14 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 
 
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 
 import android.os.IBinder;
 import android.os.PowerManager;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.inputmethod.EditorInfo;
@@ -31,6 +33,8 @@ import android.widget.ToggleButton;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,6 +87,7 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         gifanimation = findViewById(R.id.gif_animation);
         contextView = findViewById(R.id.enter_names_act);
         ToggleButton hint = findViewById(R.id.hint_button);
+
 
         names.setImeOptions(names.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
         nicknames.setImeOptions(nicknames.getImeOptions()| EditorInfo.IME_FLAG_NO_EXTRACT_UI);
@@ -441,6 +446,28 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         assert inputMethodManager != null;
         inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(),0);
     }
+
+    /**
+     * this method is called when the configuration changes and we need to keep the locale of the current configuration to the next one
+     * @param newConfig landscape or portrait
+     */
+    @Override
+    public void onConfigurationChanged(@NotNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        //int orientation = this.getResources().getConfiguration().orientation;
+
+        if(newConfig.orientation==Configuration.ORIENTATION_LANDSCAPE){
+            Assisting_Class.loadlocale(EnterNamesOfPlayers.this);
+            Log.e("On Config Change","LANDSCAPE");
+        }else{
+            Assisting_Class.loadlocale(EnterNamesOfPlayers.this);
+            Log.e("On Config Change","PORTRAIT");
+        }
+
+    }
+
+
 
 }
 

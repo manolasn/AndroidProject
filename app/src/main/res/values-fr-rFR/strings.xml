@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Surnoms</string>
+    <string name="app_name">NickNames</string>
     <string name="action_settings">Réglages</string>
     <!-- Strings used for fragments for navigation -->
     <string name="back">RETOUR</string>
@@ -58,6 +58,8 @@
     <string name="point_added_to">Point \\ s ajouté à:</string>
     <string name="winner_s_is_are">Gagnant(s) :</string>
     <string name="game_scoreboard">Tableau de bord du jeu :</string>
+    <string name="insert_number_before_submitting">"Veuillez insérer le numéro avant de soumettre "</string>
+    <string name="three_to_ten_ppl">Le jeu se joue avec 3 à 10 personnes</string>
 
 
 </resources>
