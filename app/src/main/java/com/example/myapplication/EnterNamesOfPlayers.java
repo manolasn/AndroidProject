@@ -150,8 +150,16 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
             hintnicknames.setVisibility(View.INVISIBLE);
         }
 
-        List<String> newList= Arrays.asList("Κομπολόι","source", "tooth", "merit" ,"kettle", "play" ,"precision" ,"equation" ,"transform" ,"trail", "reach" ,"delicate" ,"recovery", "empire", "post", "band", "delivery", "climate", "number", "flourish", "increase" ,"convince","bounce" ,"connection" ,"record", "hook","cross", "trade" ,"hostage" ,"menu", "delete", "offspring" ,"examination" ,"rob" ,"cherry" ,"hostile", "fit", "myth", "quote", "evaluate", "exposure", "warn", "consultation", "designer", "cooperate" ,"invite", "shape", "canvas" ,"chimpanzee" ,"ride","παπαπαπ",
-                "πηγή", "δόντι", "αξία", "βραστήρας", "παιχνίδι", "ακρίβεια", "εξίσωση", "μεταμόρφωση", "ίχνος", "προσέγγιση", "παπαρούνα", "ανάκτηση", "αυτοκρατορία "," ανάρτηση "," μπάντα "," παράδοση "," κλίμα "," αριθμός "," περικαμψύλιο "," αύξηση "," ανοχή "," αναπήδηση "," σύνδεση "," ηχογράφηση "," γάντζος ", "κορνίζα", "εμπόριο", "όμηρος", "rca", "διαγραφή", "απόγονος", "εξέταση", "ληστεία", "κεράσι", "εχθρικός", "θηλιά", "μύθος", "απόσπασμα "," αξιολόγηση "," έκθεση "," προειδοποίηση "," διαβούλευση "," σχεδιαστής "," συνεργασία "," πρόσκληση "," σχήμα "," καμβάς "," χιμπατζής "," βόλτα "," hyperX ");
+        //Some hints
+        List<String> newList= Arrays.asList("Σκύλος", "Κομπολόι","source", "tooth", "κλειδί", "merit", "Νώε" ,"kettle", "play" ,"πρόβατο","precision", "Super Mario", "Αρχηγός" ,"equation" ,
+                "χάμστερ", "transform" ,"Μήτσος", "trail", "reach", "αλεπουδάκι" ,"delicate", "τουτούκος" ,"recovery", "απολυμένος", "empire", "βλέμα", "post", "band", "υποβρύχιο" ,"πάντα",
+                "delivery", "climate", "άγγελος", "number", "flourish", "increase", "καραγκιόζης", "φασολάδα","convince","bounce" ,"connection", "κοιμάμαι", "record", "hook","cross", "παριζάκι",
+                "trade" ,"hostage", "java","menu", "οδηγός", "delete", "offspring" ,"examination" , "μαύρο", "πατέρας", "rob" ,"cherry" ,"hostile","αρχαίος",  "fit", "myth", "quote", "evaluate",
+                "exposure","βράδυ", "warn", "consultation", "designer", "cooperate" ,"invite", "πυροσβεστήρας", "shape", "canvas" ,"chimpanzee" ,"ride","παπαπαπ", "πηγή", "δόντι", "αξία", "winner","βραστήρας",
+                "παιχνίδι", "ακρίβεια", "εξίσωση","hide and seek", "μεταμόρφωση", "ίχνος", "hippo", "προσέγγιση", "παπαρούνα", "Kappa", "αυτοκρατορία "," ανάρτηση "," μπάντα "," παράδοση "," κλίμα "," αριθμός ",
+                " περικαμψύλιο ", "game", " αύξηση "," ανοχή "," αναπήδηση ", "pacman", "σύνδεση", " ηχογράφηση ","firefly", " γάντζος ","game boy", "κορνίζα", "εμπόριο", "όμηρος", "rca", "διαγραφή", "απόγονος",
+                "εξέταση","NickNames: the Game", "ληστεία", "ninja","κεράσι", "εχθρικός", "θηλιά","opera", "69", "μύθος", "απόσπασμα ","Fortnite", " αξιολόγηση ", "karate", " έκθεση "," προειδοποίηση ",
+                " διαβούλευση ", "emulator"," συνεργασία ","Naruto", " πρόσκληση ","Einstein"," σχήμα ", "one hundred","Michael Jackson"," καμβάς ", "python"," χιμπατζής ","tsunami"," βόλτα ", "Γιώργος"," hyperX ");
 
         hint_nicknames.addAll(newList);
 
@@ -160,9 +168,10 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
         });
 
 
+        Random rand=new Random();
         hint.setOnClickListener(v -> {
 
-            if(hint_nicknames.size()<7)
+            if(hint_nicknames.size()<6)
             {
                 hint_nicknames.clear();
                 hint_nicknames.addAll(newList);
@@ -175,12 +184,16 @@ public class EnterNamesOfPlayers extends AppCompatActivity {
                 if(hintnicknames.getVisibility() == View.INVISIBLE)
                 {
                     hintnicknames.append(getResources().getString(R.string.some_nicks));
-                    for(int i=0; i<5&&i<hint_nicknames.size();i++)
-                    {
 
-                        hintnicknames.append("\n"+hint_nicknames.get(i));
-                        hint_nicknames.remove(i);
+                    int i=0;
+                    while (!hint_nicknames.isEmpty()&&i<6)
+                    {
+                        i++;
+                        int ran=rand.nextInt(hint_nicknames.size());
+                        hintnicknames.append("\n"+hint_nicknames.get(ran));
+                        hint_nicknames.remove(ran);
                     }
+
                     hintnicknames.setVisibility(View.VISIBLE);
                 }
 
